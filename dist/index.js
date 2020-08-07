@@ -11,7 +11,7 @@ var Utils = __importStar(require("./utils"));
 var store_1 = require("./store");
 exports.Store = store_1.Store;
 /**
- * Create a `Writable` store that allows both updating and reading by subscription.
+ * Create a store that allows both updating and reading by subscription.
  * @param {*=}value initial value
  * @param {StartStopNotifier=}start start and stop notifications for subscriptions
  */
