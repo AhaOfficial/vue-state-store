@@ -1,0 +1,21 @@
+{
+  "name": "vue-state-store",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc && node dist/index.js",
+    "clean": "rm -rf ./dist/*.*",
+    "lint": "prettier --write ./src/**/*.{ts}"
+  },
+  "main": "./dist/index.js",
+  "type": "./dist/index.d.ts",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^14.0.27",
+    "prettier": "^2.0.5"
+  }
+}
