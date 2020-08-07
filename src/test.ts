@@ -89,7 +89,7 @@ class Vote extends Store<IVoteData> {
             return data
         })
     }
-    syncWithNetwork(){
+    syncWithNetwork() {
         // window.axios.update() blablabla
     }
 }

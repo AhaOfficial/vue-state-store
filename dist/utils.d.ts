@@ -1,0 +1,18 @@
+export declare const noop: () => void;
+export declare const identity: (x: any) => any;
+export declare const assign: <T, S>(tar: T, src: S) => T & S;
+export declare const isPromise: <T = any>(value: any) => value is PromiseLike<T>;
+export declare const run: (callback: any) => any;
+export declare const blankObject: () => any;
+export declare const runAll: (fns: any) => void;
+export declare const isFunction: (thing: any) => thing is Function;
+export declare const safeNotEqual: (a: any, b: any) => boolean;
+export declare const notEqual: (a: any, b: any) => boolean;
+export declare const isEmpty: (obj: any) => boolean;
+export declare const validateStore: (store: any, name: any) => void;
+export declare const subscribe: (store: any, ...callbacks: any[]) => any;
+export declare const getStoreValue: (store: any) => any;
+export declare const once: (fn: any) => (this: any, ...args: any[]) => void;
+export declare const nullToEmpty: (value: any) => any;
+export declare const hasProp: (obj: any, prop: any) => any;
+export declare const actionDestroyer: (action_result: any) => any;
