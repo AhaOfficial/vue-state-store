@@ -6,15 +6,15 @@ const subscriberQueue: any[] = []
 export class Store<T> implements Interface.IStore<T> {
     protected stop: Interface.Unsubscriber | null = null
     protected subscribers: Array<Interface.SubscribeInvalidateTuple<T>> = []
-    protected value?: T
+    protected value: T
     protected start: Interface.StartStopNotifier<T>
 
-    constructor(value?: T, start: Interface.StartStopNotifier<T> = Utils.noop) {
+    constructor(value: T, start: Interface.StartStopNotifier<T> = Utils.noop) {
         this.value = value
         this.start = start
     }
 
-    get() {
+    get(): T {
         return Utils.getStoreValue(this)
     }
 
