@@ -19,6 +19,11 @@
         "nuxt",
         "typescript"
     ],
+    "homepage": "https://a-ha.io",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AhaOfficial/vue-state-store"
+    },
     "author": "AhaOfficial",
     "license": "MIT",
     "dependencies": {},
