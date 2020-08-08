@@ -1,6 +1,7 @@
 export declare type Subscriber<T> = (value: T) => void;
 export declare type Unsubscriber = () => void;
 export declare type Updater<T> = (value: T) => T;
+export declare type AsyncUpdater<T> = (value: T) => Promise<T>;
 export declare type Invalidator<T> = (value?: T) => void;
 export declare type SubscribeInvalidateTuple<T> = [Subscriber<T>, Invalidator<T>];
 export declare type StartStopNotifier<T> = (set: Subscriber<T>) => Unsubscriber | void;

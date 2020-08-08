@@ -1,6 +1,9 @@
 "use strict";
 exports.__esModule = true;
 exports.noop = function () { };
+exports.isPromise = function (value) {
+    return value && typeof value === 'object' && typeof value.then === 'function';
+};
 exports.run = function (callback) {
     return callback();
 };

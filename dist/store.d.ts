@@ -6,7 +6,7 @@ export declare class Store<T> implements Interface.IStore<T> {
     protected start: Interface.StartStopNotifier<T>;
     constructor(value: T, start?: Interface.StartStopNotifier<T>);
     get(): T;
-    set(newValue: T): void;
-    update(callback: Interface.Updater<T>): void;
+    set(newValue: T): Promise<void>;
+    update(callback: Interface.Updater<T> | Interface.AsyncUpdater<T>): Promise<void>;
     subscribe(run: Interface.Subscriber<T>, invalidate?: Interface.Invalidator<T>): Interface.Unsubscriber;
 }
