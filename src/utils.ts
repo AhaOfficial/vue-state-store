@@ -1,5 +1,9 @@
 export const noop = () => {}
 
+export const isPromise = <T = any>(value: any): value is PromiseLike<T> => {
+    return value && typeof value === 'object' && typeof value.then === 'function'
+}
+
 export const run = (callback: any) => {
     return callback()
 }

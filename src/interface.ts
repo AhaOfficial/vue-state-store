@@ -1,6 +1,7 @@
 export type Subscriber<T> = (value: T) => void
 export type Unsubscriber = () => void
 export type Updater<T> = (value: T) => T
+export type AsyncUpdater<T> = (value: T) => Promise<T>
 export type Invalidator<T> = (value?: T) => void
 
 export type SubscribeInvalidateTuple<T> = [Subscriber<T>, Invalidator<T>]

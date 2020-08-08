@@ -19,26 +19,29 @@ export class Store<T> implements Interface.IStore<T> {
     }
 
     set(newValue: T) {
-        if (Utils.safeNotEqual(this.value, newValue)) {
-            this.value = newValue
-            if (this.stop) {
-                const runQueue = !subscriberQueue.length
-                for (let i = 0; i < this.subscribers.length; i += 1) {
-                    const s = this.subscribers[i]
-                    s[1]()
-                    subscriberQueue.push(s, this.value)
+        return new Promise<void>((resolve) => {
+            if (Utils.safeNotEqual(this.value, newValue)) {
+                this.value = newValue
+                if (this.stop) {
+                    const runQueue = !subscriberQueue.length
+                    for (let i = 0; i < this.subscribers.length; i += 1) {
+                        const s = this.subscribers[i]
+                        s[1]()
+                        subscriberQueue.push(s, this.value)
+                    }
+                    if (runQueue) {
+                        for (let i = 0; i < subscriberQueue.length; i += 2)
+                            subscriberQueue[i][0](subscriberQueue[i + 1])
+                        subscriberQueue.length = 0
+                    }
                 }
-                if (runQueue) {
-                    for (let i = 0; i < subscriberQueue.length; i += 2)
-                        subscriberQueue[i][0](subscriberQueue[i + 1])
-                    subscriberQueue.length = 0
-                }
+                resolve()
             }
-        }
+        })
     }
 
-    update(callback: Interface.Updater<T>) {
-        this.set(callback(this.value))
+    async update(callback: Interface.Updater<T> | Interface.AsyncUpdater<T>) {
+        await this.set(await callback(this.value))
     }
 
     subscribe(
