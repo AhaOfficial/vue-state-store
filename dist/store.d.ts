@@ -9,4 +9,5 @@ export declare class Store<T> implements Interface.IStore<T> {
     set(newValue: T): Promise<void>;
     update(callback: Interface.Updater<T> | Interface.AsyncUpdater<T>): Promise<void>;
     subscribe(run: Interface.Subscriber<T>, invalidate?: Interface.Invalidator<T>): Interface.Unsubscriber;
+    bind(): import("@vue/composition-api").Ref<import("@vue/composition-api").UnwrapRef<T>>;
 }

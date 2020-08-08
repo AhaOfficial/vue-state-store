@@ -44,6 +44,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 exports.__esModule = true;
 var Utils = __importStar(require("./utils"));
+var composition_api_1 = require("@vue/composition-api");
 var subscriberQueue = [];
 var Store = /** @class */ (function () {
     function Store(value, start) {
@@ -116,6 +117,14 @@ var Store = /** @class */ (function () {
                 _this.stop = null;
             }
         };
+    };
+    Store.prototype.bind = function () {
+        var bindedValue = composition_api_1.ref(this.value);
+        this.subscribe(function (data) {
+            // @ts-ignore
+            bindedValue.value = data;
+        });
+        return bindedValue;
     };
     return Store;
 }());
