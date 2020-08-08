@@ -124,7 +124,7 @@ var Store = /** @class */ (function () {
             // @ts-ignore
             bindedValue.value = data;
         });
-        return bindedValue;
+        return bindedValue.value;
     };
     return Store;
 }());
