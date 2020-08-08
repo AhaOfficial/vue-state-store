@@ -74,6 +74,6 @@ export class Store<T> implements Interface.IStore<T> {
             // @ts-ignore
             bindedValue.value = data
         })
-        return bindedValue
+        return bindedValue.value
     }
 }
