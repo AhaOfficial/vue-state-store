@@ -22,21 +22,22 @@
 
 ## 📔 Table of Contents
 
-* [😊 Easy use! & Powerful application!](#-쉬운-사용--강력한-응용)
-  * [💡 Advantages compared to vuex](#-vuex-와-비교하였을때-장점)
-  * [💬 Installation](#-설치-방법)
-  * [📬 Pub & Sub Model Description](#-발행--구독-모델-설명)
-* [😎 Basic Usage](#-기본적인-사용방법)
-  * [📮 Primitive Type Pub & Sub](#-기본-타입-발행--구독)
-  * [📮 Object Type Pub & Sub](#-객체-타입-발행--구독)
-  * [📮 Create state & embedded action](#-상태-및-내장된-액션-생성)
-  * [📮 Binding within the Vue template](#-vue-템플릿-내에서의-바인딩)
-* [🚀 Advanced Usage](#-고급-사용법-설명)
-  * [⏳ Asynchronous-tic Usage](#-비동기-사용-방법)
-  * [💡 Vscode Intellisense Usage](#-vscode-인텔리센스-적용방법)
+* [😊 Easy use! & Powerful application!](#-easy-use--powerful-application)
+  * [💡 Advantages compared to vuex](#-advantages-compared-to-vuex)
+  * [💬 Installation](#-installation)
+  * [📬 Pub & Sub Model Description](#-pub--sub-model-description)
+* [😎 Basic Usage](#-basic-usage)
+  * [📮 Primitive Type Pub & Sub](#-primitive-type-pub--sub)
+  * [📮 Object Type Pub & Sub](#-object-type-pub--sub)
+  * [📮 Create state & embedded action](#-create-state--embedded-action)
+  * [📮 Binding within the Vue template](#-binding-within-the-vue-template)
+* [🚀 Advanced Usage](#-advanced-usage)
+  * [⏳ Asynchronous-tic Usage](#-asynchronous-tic-usage)
+  * [💡 Vscode Intellisense Usage](#-vscode-intellisense-usage)
 * [🤔 Q&A](#-qa)
-  * [🧲 Q. Doesn't have a $store with all the state stores like vuex?](#-q-vuex-처럼-모든-상태-저장소들을-다-가지고-있는-store는-없나요)
-  * [👀 Q. Will the changed value be rendered again if the `.bind()` value is changed?](#-q-vuex-처럼-모든-상태-저장소들을-다-가지고-있는-store는-없나요)
+  * [🧲 Q. Doesn't have a $store with all the state stores like vuex?](#-q-doesnt-have-a-store-with-all-the-state-stores-like-vuex)
+  * [👀 Q. Will the changed value be rendered again if the `.bind()` value is changed?](#-q-will-the-changed-value-be-rendered-again-if-the-bind-value-is-changed)
+* [📔 License](#-license)
 
 <br/>
 
