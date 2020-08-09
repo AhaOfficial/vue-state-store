@@ -10,6 +10,14 @@
 
 <br/>
 
+## 📔 목차
+
+- [😊 쉬운 사용! & 강력한 응용!](#😊 쉬운 사용! & 강력한 응용!)
+  - [💡 vuex 와 비교하였을때 장점](#💡 vuex 와 비교하였을때 장점)
+  - [💬 설치 방법](#💬 설치 방법)
+
+<br/>
+
 ## 😊 쉬운 사용! & 강력한 응용!
 
 `vue-state-store` 는 기존의 `vue` 에서 많이 사용되던 `vuex` 모듈을 완전히 대체하기 위해서 나온 모듈입니다. 이 모듈은  <u>**타입스크립트의 효율을 200% 로 사용해서 상태관리를 매우 쉽게 만드는 것을 목표로 합니다.**</u>  
@@ -27,7 +35,7 @@
 
 <br/>
 
-### 💬 설치방법
+### 💬 설치 방법
 
 > (Vue2, Vue3, Nuxt 를 지원하며, Composition API 에서 자동 바인딩 함수 `.bind()` 를 지원합니다.)
 
@@ -51,9 +59,9 @@ npm i vue-state-store
 
 <br/>
 
-### 📮 기본타입 발행 & 구독
+### 📮 기본 타입 발행 & 구독
 
-> 기본 타입은 다섯가지 기본 **타입** (Number, String, Boolean, null, undefined) 을 뜻합니다.  
+> 기본 타입은 다섯가지 기본 **타입** (number, string, boolean, null, undefined) 을 뜻합니다.  
 
 <img src="https://i.imgur.com/dfaprvQ.png" width="600"/>
 
@@ -63,7 +71,7 @@ npm i vue-state-store
 
 > 아래를 보시면 위와 사용법 차이가 거의 없다는 것을 확인하실 수 있습니다.
 >
->  `store(vaule)` 에서 value 는 <u>기본 타입</u> 또는 <u>객체</u>가 될 수 있습니다.
+>  `store(value)` 에서 value 는 <u>기본 타입</u> 또는 <u>객체</u>가 될 수 있습니다.
 
 <img src="https://i.imgur.com/D8I76ax.png" width="600"/>
 
