@@ -153,13 +153,13 @@ vetur 설치후 템플릿 내 인텔리센스를 지원받기 위해서 아래�
 
 > A. 네 vue의 ref 를 통해서 변경된 저장소 값이 실시간으로 템플릿 태그를 통해 DOM에 반영됩니다. 
 
-  
+<br/>
 
-  
+<br/>
 
 ## 📔 라이센스
 
-> Copyright @ 2020 AhaOfficial (a-ha.io)
+> Copyright (c) 2020 AhaOfficial
 
 **MIT Licensed**
 
