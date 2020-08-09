@@ -1,6 +1,6 @@
 import * as Interface from './interface'
 import * as Utils from './utils'
-import { ref } from '@vue/composition-api'
+import { ref, UnwrapRef } from '@vue/composition-api'
 
 const subscriberQueue: any[] = []
 
@@ -71,8 +71,7 @@ export class Store<T> implements Interface.IStore<T> {
     bind() {
         let bindedValue = ref(this.value)
         this.subscribe((data) => {
-            // @ts-ignore
-            bindedValue.value = data
+            bindedValue.value = data as UnwrapRef<T>
         })
         return bindedValue.value
     }
