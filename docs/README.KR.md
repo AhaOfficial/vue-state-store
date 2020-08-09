@@ -27,6 +27,7 @@
 * [🤔 Q&A](#-qa)
   * [🧲 Q. vuex 처럼 모든 상태 저장소들을 다 가지고 있는 $store는 없나요?](#-q-vuex-처럼-모든-상태-저장소들을-다-가지고-있는-store는-없나요)
   * [👀 Q. `.bind()` 된 값이 변경되면 변경된 값이 다시 렌더링되나요?](#-q-vuex-처럼-모든-상태-저장소들을-다-가지고-있는-store는-없나요)
+* [📔 라이센스](#-라이센스)
 
 <br/>
 
@@ -87,7 +88,7 @@ npm i vue-state-store
 >
 >  `store(value)` 에서 value 는 <u>기본 타입</u> 또는 <u>객체</u>가 될 수 있습니다.
 
-<img src="https://i.imgur.com/D8I76ax.png" width="600"/>
+<img src="https://i.imgur.com/r7Dx2wV.png" width="600"/>
 
 <br/>
 
@@ -98,7 +99,7 @@ npm i vue-state-store
 `vue-state-store` 에서는 Action 과 Mutation 의 구별이 필요하지 않습니다.
 
 - 클래스에 임의의 함수를 생성함으로써 <u>**내장된 액션(Embedded Action)**</u> 의 구성이 가능합니다.
-- 클래스에 내장되지 않은채로 상태를 변형하는 모든 함수는 **<u>외부 액션(Outsidde Action)</u>** 으로 명칭합니다.  
+- 클래스에 내장되지 않은채로 상태를 변형하는 모든 함수는 **<u>외부 액션(Outside Action)</u>** 으로 명칭합니다.  
 
 <img src="https://i.imgur.com/Tjs6PiM.png" width="600"/>
 
@@ -167,7 +168,7 @@ vetur 설치후 템플릿 내 인텔리센스를 지원받기 위해서 아래�
 
 임의의 index.ts 파일을 만든 후 `import { vote } from '~/store` 와 같이 일부 스토어만 가져와서 사용하는 것이 권장됩니다. `vue-state-store` 는 분산된 구조를 가지며, 각 저장소가 필요한 경우에만 개별적으로 서로를 참조할 수 있습니다.
 
- `.bind()` 함수를 통해서 vue 템플릿 태그 내에서 사용되기 전까지 `vue-state-store` 는 `vue` 와 완전히 분리된 상태로 구성됩니다.
+ `.bind()` 함수를 통해서 vue 템플릿 태그 내에서 사용되기 전까지 `vue-state-store` 는 `vue` 와 완전히 독립된 상태로 구성됩니다.
 
 <br/>
 
