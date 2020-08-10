@@ -26,7 +26,7 @@
     "homepage": "https://a-ha.io",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/AhaOfficial/vue-state-store"
+        "url": "https://github.com/AhaOfficial/vue-state-store"
     },
     "author": "AhaOfficial",
     "license": "MIT",
@@ -35,8 +35,5 @@
         "@types/node": "^14.0.27",
         "@vue/composition-api": "*",
         "prettier": "^2.0.5"
-    },
-    "publishConfig": {
-        "registry": "https://npm.pkg.github.com/"
     }
 }
