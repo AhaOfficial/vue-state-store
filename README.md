@@ -37,6 +37,7 @@
 * [🤔 Q&A](#-qa)
   * [🧲 Q. Doesn't have a $store with all the state stores like vuex?](#-q-doesnt-have-a-store-with-all-the-state-stores-like-vuex)
   * [👀 Q. Will the changed value be rendered again if the `.bind()` value is changed?](#-q-will-the-changed-value-be-rendered-again-if-the-bind-value-is-changed)
+  * [📡 Q. Is the `.bind()` value work two way binding?]()
 * [📔 License](#-license)
 
 <br/>
@@ -185,6 +186,12 @@ it's recommended that you import and use only a few stores after creating any in
 ### 👀 Q. Will the changed value be rendered again if the `.bind()` value is changed?
 
 > A. Yes, the storage values changed through the ref of vue are reflected in the DOM through template tags in real time.
+
+<br/>
+
+### 📡 Q. Is the `.bind()` value work two way binding?
+
+> A. Yes, the binding value changes as the storage value changes, and the storage value changes as the binding value changes.
 
 <br/>
 
