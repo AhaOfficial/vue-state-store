@@ -37,7 +37,7 @@
 * [🤔 Q&A](#-qa)
   * [🧲 Q. Doesn't have a $store with all the state stores like vuex?](#-q-doesnt-have-a-store-with-all-the-state-stores-like-vuex)
   * [👀 Q. Will the changed value be rendered again if the `.bind()` value is changed?](#-q-will-the-changed-value-be-rendered-again-if-the-bind-value-is-changed)
-  * [📡 Q. Is the `.bind()` value work two way binding?]()
+  * [📡 Q. Is the `.bind()` value work two way binding?](#-q-is-the-bind-value-work-two-way-binding)
 * [📔 License](#-license)
 
 <br/>
