@@ -119,10 +119,13 @@ var Store = /** @class */ (function () {
         };
     };
     Store.prototype.bind = function () {
+        var _this = this;
         var bindedValue = composition_api_1.ref(this.value);
         this.subscribe(function (data) {
-            // @ts-ignore
             bindedValue.value = data;
+        });
+        composition_api_1.watch(bindedValue, function () {
+            _this.set(bindedValue.value);
         });
         return bindedValue.value;
     };
