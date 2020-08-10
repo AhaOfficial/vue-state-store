@@ -1,6 +1,6 @@
 import * as Interface from './interface'
 import * as Utils from './utils'
-import { ref, UnwrapRef, watch } from '@vue/composition-api'
+import { ref, UnwrapRef, watch, onUnmounted } from '@vue/composition-api'
 
 const subscriberQueue: any[] = []
 
@@ -70,11 +70,15 @@ export class Store<T> implements Interface.IStore<T> {
 
     bind() {
         const bindedValue = ref(this.value)
-        this.subscribe((data) => {
+        const unsubscribeStore = this.subscribe((data) => {
             bindedValue.value = data as UnwrapRef<T>
         })
-        watch(bindedValue, () => {
+        const unsubscribeWatch = watch(bindedValue, () => {
             this.set(bindedValue.value as T)
+        })
+        onUnmounted(() => {
+            unsubscribeStore()
+            unsubscribeWatch()
         })
         return bindedValue.value
     }
