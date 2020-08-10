@@ -121,11 +121,15 @@ var Store = /** @class */ (function () {
     Store.prototype.bind = function () {
         var _this = this;
         var bindedValue = composition_api_1.ref(this.value);
-        this.subscribe(function (data) {
+        var unsubscribeStore = this.subscribe(function (data) {
             bindedValue.value = data;
         });
-        composition_api_1.watch(bindedValue, function () {
+        var unsubscribeWatch = composition_api_1.watch(bindedValue, function () {
             _this.set(bindedValue.value);
+        });
+        composition_api_1.onUnmounted(function () {
+            unsubscribeStore();
+            unsubscribeWatch();
         });
         return bindedValue.value;
     };
