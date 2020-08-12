@@ -75,7 +75,8 @@ export class Store<T> implements Interface.IStore<T> {
             bindedValue.value = data as UnwrapRef<T>
         })
         const unsubscribeWatch = watch(bindedValue, () => {
-            this.set(bindedValue.value as T)
+            const dataOfObserverRemoved = Object.assign({}, bindedValue.value)
+            this.set(dataOfObserverRemoved as T)
         })
         onUnmounted(() => {
             unsubscribeStore()

@@ -125,7 +125,8 @@ var Store = /** @class */ (function () {
             bindedValue.value = data;
         });
         var unsubscribeWatch = composition_api_1.watch(bindedValue, function () {
-            _this.set(bindedValue.value);
+            var dataOfObserverRemoved = Object.assign({}, bindedValue.value);
+            _this.set(dataOfObserverRemoved);
         });
         composition_api_1.onUnmounted(function () {
             unsubscribeStore();
