@@ -1,6 +1,6 @@
 {
     "name": "vue-state-store",
-    "version": "0.8.9",
+    "version": "0.8.10",
     "description": "📦 Vue State Management (with Publish & Subscribe pattern)",
     "scripts": {
         "build": "tsc",

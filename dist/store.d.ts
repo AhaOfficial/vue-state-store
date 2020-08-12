@@ -1,5 +1,5 @@
 import * as Interface from './interface';
-import { UnwrapRef } from '@vue/composition-api';
+import { Ref, UnwrapRef } from '@vue/composition-api';
 export declare class Store<T> implements Interface.IStore<T> {
     protected stop: Interface.Unsubscriber | null;
     protected subscribers: Array<Interface.SubscribeInvalidateTuple<T>>;
@@ -14,5 +14,6 @@ export declare class Store<T> implements Interface.IStore<T> {
     update(callback: Interface.Updater<T> | Interface.AsyncUpdater<T>): Promise<void>;
     subscribe(run: Interface.Subscriber<T>, invalidate?: Interface.Invalidator<T>): Interface.Unsubscriber;
     bind(): UnwrapRef<T>;
+    get compute(): Ref<UnwrapRef<T>>;
     destroy(): void;
 }

@@ -121,7 +121,7 @@ var Store = /** @class */ (function () {
     Store.prototype.bind = function () {
         var _this = this;
         if (this._bindedValue)
-            return this._bindedValue;
+            return this._bindedValue.value;
         var bindedValue = composition_api_1.ref(this._value);
         this._unsubscribeStore = this.subscribe(function (data) {
             bindedValue.value = data;
@@ -129,10 +129,19 @@ var Store = /** @class */ (function () {
         this._unsubscribeWatch = composition_api_1.watch(bindedValue.value, function () {
             var dataOfObserverRemoved = bindedValue.value;
             _this.set(dataOfObserverRemoved);
+        }, {
+            deep: true
         });
-        this._bindedValue = bindedValue.value;
-        return this._bindedValue;
+        this._bindedValue = bindedValue;
+        return this._bindedValue.value;
     };
+    Object.defineProperty(Store.prototype, "compute", {
+        get: function () {
+            return this._bindedValue;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Store.prototype.destroy = function () {
         this._bindedValue = undefined;
         if (typeof this._unsubscribeStore == 'function')
