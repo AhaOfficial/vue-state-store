@@ -1,6 +1,6 @@
 import * as Interface from './interface'
 import * as Utils from './utils'
-import { ref, UnwrapRef, watch } from '@vue/composition-api'
+import { ref, UnwrapRef, watch, WatchSource } from '@vue/composition-api'
 
 const subscriberQueue: any[] = []
 
@@ -11,9 +11,9 @@ export class Store<T> implements Interface.IStore<T> {
     protected start: Interface.StartStopNotifier<T>
 
     private _value: T
-    private unsubscribeStore
-    private unsubscribeWatch
-    private value?: UnwrapRef<T>
+    private _unsubscribeStore
+    private _unsubscribeWatch
+    private _bindedValue?: UnwrapRef<T>
 
     constructor(value: T, start: Interface.StartStopNotifier<T> = Utils.noop) {
         this._value = value
@@ -74,24 +74,24 @@ export class Store<T> implements Interface.IStore<T> {
     }
 
     bind() {
-        if (this.value) return this.value
+        if (this._bindedValue) return this._bindedValue
         const bindedValue = ref(this._value)
-        this.unsubscribeStore = this.subscribe((data) => {
+        this._unsubscribeStore = this.subscribe((data) => {
             bindedValue.value = data as UnwrapRef<T>
         })
-        this.unsubscribeWatch = watch(bindedValue, () => {
-            const dataOfObserverRemoved = JSON.parse(JSON.stringify(bindedValue.value))
+        this._unsubscribeWatch = watch(bindedValue.value as WatchSource<T>, () => {
+            const dataOfObserverRemoved = bindedValue.value
             this.set(dataOfObserverRemoved as T)
         })
-        this.value = bindedValue.value
-        return this.value
+        this._bindedValue = bindedValue.value
+        return this._bindedValue
     }
 
     destroy() {
-        this.value = undefined
-        if (typeof this.unsubscribeStore == 'function')
-            this.unsubscribeStore()
-        if (typeof this.unsubscribeWatch == 'function')
-            this.unsubscribeWatch()
+        this._bindedValue = undefined
+        if (typeof this._unsubscribeStore == 'function')
+            this._unsubscribeStore()
+        if (typeof this._unsubscribeWatch == 'function')
+            this._unsubscribeWatch()
     }
 }

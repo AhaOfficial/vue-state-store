@@ -120,25 +120,25 @@ var Store = /** @class */ (function () {
     };
     Store.prototype.bind = function () {
         var _this = this;
-        if (this.value)
-            return this.value;
+        if (this._bindedValue)
+            return this._bindedValue;
         var bindedValue = composition_api_1.ref(this._value);
-        this.unsubscribeStore = this.subscribe(function (data) {
+        this._unsubscribeStore = this.subscribe(function (data) {
             bindedValue.value = data;
         });
-        this.unsubscribeWatch = composition_api_1.watch(bindedValue, function () {
-            var dataOfObserverRemoved = JSON.parse(JSON.stringify(bindedValue.value));
+        this._unsubscribeWatch = composition_api_1.watch(bindedValue.value, function () {
+            var dataOfObserverRemoved = bindedValue.value;
             _this.set(dataOfObserverRemoved);
         });
-        this.value = bindedValue.value;
-        return this.value;
+        this._bindedValue = bindedValue.value;
+        return this._bindedValue;
     };
     Store.prototype.destroy = function () {
-        this.value = undefined;
-        if (typeof this.unsubscribeStore == 'function')
-            this.unsubscribeStore();
-        if (typeof this.unsubscribeWatch == 'function')
-            this.unsubscribeWatch();
+        this._bindedValue = undefined;
+        if (typeof this._unsubscribeStore == 'function')
+            this._unsubscribeStore();
+        if (typeof this._unsubscribeWatch == 'function')
+            this._unsubscribeWatch();
     };
     return Store;
 }());
