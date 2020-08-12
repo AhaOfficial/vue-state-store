@@ -1,6 +1,6 @@
 import * as Interface from './interface'
 import * as Utils from './utils'
-import { ref, UnwrapRef, watch, onUnmounted } from '@vue/composition-api'
+import { ref, UnwrapRef, watch } from '@vue/composition-api'
 
 const subscriberQueue: any[] = []
 
@@ -8,12 +8,26 @@ const subscriberQueue: any[] = []
 export class Store<T> implements Interface.IStore<T> {
     protected stop: Interface.Unsubscriber | null = null
     protected subscribers: Array<Interface.SubscribeInvalidateTuple<T>> = []
-    private _value: T
     protected start: Interface.StartStopNotifier<T>
+
+    private _value: T
+    private unsubscribeStore
+    private unsubscribeWatch
+    public value
 
     constructor(value: T, start: Interface.StartStopNotifier<T> = Utils.noop) {
         this._value = value
         this.start = start
+
+        const bindedValue = ref(this._value)
+        this.unsubscribeStore = this.subscribe((data) => {
+            bindedValue.value = data as UnwrapRef<T>
+        })
+        this.unsubscribeWatch = watch(bindedValue, () => {
+            const dataOfObserverRemoved = JSON.parse(JSON.stringify(bindedValue.value))
+            this.set(dataOfObserverRemoved as T)
+        })
+        this.value = bindedValue.value
     }
 
     get(): T {
@@ -70,26 +84,13 @@ export class Store<T> implements Interface.IStore<T> {
     }
 
     bind() {
-        const bindedValue = ref(this._value)
-        const unsubscribeStore = this.subscribe((data) => {
-            bindedValue.value = data as UnwrapRef<T>
-        })
-        const unsubscribeWatch = watch(bindedValue, () => {
-            const dataOfObserverRemoved = JSON.parse(JSON.stringify(bindedValue.value))
-            this.set(dataOfObserverRemoved as T)
-        })
-        onUnmounted(() => {
-            unsubscribeStore()
-            unsubscribeWatch()
-        })
-        return bindedValue.value
+        return this.value
     }
 
-    protected get value() {
-        return this.get()
-    }
-
-    protected set value(newValue) {
-        this.set(newValue)
+    destroy() {
+        if (typeof this.unsubscribeStore == 'function')
+            this.unsubscribeStore()
+        if (typeof this.unsubscribeWatch == 'function')
+            this.unsubscribeWatch()
     }
 }
