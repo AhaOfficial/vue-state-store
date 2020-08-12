@@ -6,7 +6,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Utils = __importStar(require("./utils"));
 var store_1 = require("./store");
 exports.Store = store_1.Store;

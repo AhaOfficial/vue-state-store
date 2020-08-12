@@ -42,7 +42,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Utils = __importStar(require("./utils"));
 var composition_api_1 = require("@vue/composition-api");
 var subscriberQueue = [];
@@ -51,7 +51,7 @@ var Store = /** @class */ (function () {
         if (start === void 0) { start = Utils.noop; }
         this.stop = null;
         this.subscribers = [];
-        this.value = value;
+        this._value = value;
         this.start = start;
     }
     Store.prototype.get = function () {
@@ -60,14 +60,14 @@ var Store = /** @class */ (function () {
     Store.prototype.set = function (newValue) {
         var _this = this;
         return new Promise(function (resolve) {
-            if (Utils.safeNotEqual(_this.value, newValue)) {
-                _this.value = newValue;
+            if (Utils.safeNotEqual(_this._value, newValue)) {
+                _this._value = newValue;
                 if (_this.stop) {
                     var runQueue = !subscriberQueue.length;
                     for (var i = 0; i < _this.subscribers.length; i += 1) {
                         var s = _this.subscribers[i];
                         s[1]();
-                        subscriberQueue.push(s, _this.value);
+                        subscriberQueue.push(s, _this._value);
                     }
                     if (runQueue) {
                         for (var i = 0; i < subscriberQueue.length; i += 2)
@@ -86,7 +86,7 @@ var Store = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = this.set;
-                        return [4 /*yield*/, callback(this.value)];
+                        return [4 /*yield*/, callback(this._value)];
                     case 1: return [4 /*yield*/, _a.apply(this, [_b.sent()])];
                     case 2:
                         _b.sent();
@@ -105,8 +105,8 @@ var Store = /** @class */ (function () {
         this.subscribers.push(subscriber);
         if (this.subscribers.length === 1)
             this.stop = this.start(this.set) || Utils.noop;
-        if (this.value)
-            run(this.value);
+        if (this._value)
+            run(this._value);
         return function () {
             var index = _this.subscribers.indexOf(subscriber);
             if (index !== -1)
@@ -120,7 +120,7 @@ var Store = /** @class */ (function () {
     };
     Store.prototype.bind = function () {
         var _this = this;
-        var bindedValue = composition_api_1.ref(this.value);
+        var bindedValue = composition_api_1.ref(this._value);
         var unsubscribeStore = this.subscribe(function (data) {
             bindedValue.value = data;
         });
@@ -133,6 +133,16 @@ var Store = /** @class */ (function () {
         });
         return bindedValue.value;
     };
+    Object.defineProperty(Store.prototype, "value", {
+        get: function () {
+            return this.get();
+        },
+        set: function (newValue) {
+            this.set(newValue);
+        },
+        enumerable: true,
+        configurable: true
+    });
     return Store;
 }());
 exports.Store = Store;

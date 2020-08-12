@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.noop = function () { };
 exports.isPromise = function (value) {
     return value && typeof value === 'object' && typeof value.then === 'function';
