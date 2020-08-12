@@ -120,8 +120,8 @@ var Store = /** @class */ (function () {
     };
     Store.prototype.bind = function () {
         var _this = this;
-        if (this._bindedValue)
-            return this._bindedValue.value;
+        if (this.compute)
+            return this.compute.value;
         var bindedValue = composition_api_1.ref(this._value);
         this._unsubscribeStore = this.subscribe(function (data) {
             bindedValue.value = data;
@@ -132,18 +132,12 @@ var Store = /** @class */ (function () {
         }, {
             deep: true
         });
-        this._bindedValue = bindedValue;
-        return this._bindedValue.value;
+        this.compute = bindedValue;
+        return this.compute.value;
     };
-    Object.defineProperty(Store.prototype, "compute", {
-        get: function () {
-            return this._bindedValue;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Store.prototype.destroy = function () {
-        this._bindedValue = undefined;
+        // @ts-ignore
+        this.compute = undefined;
         if (typeof this._unsubscribeStore == 'function')
             this._unsubscribeStore();
         if (typeof this._unsubscribeWatch == 'function')

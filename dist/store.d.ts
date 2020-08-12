@@ -7,13 +7,12 @@ export declare class Store<T> implements Interface.IStore<T> {
     private _value;
     private _unsubscribeStore;
     private _unsubscribeWatch;
-    private _bindedValue?;
+    compute: Ref<UnwrapRef<T>>;
     constructor(value: T, start?: Interface.StartStopNotifier<T>);
     get(): T;
     set(newValue: T): Promise<void>;
     update(callback: Interface.Updater<T> | Interface.AsyncUpdater<T>): Promise<void>;
     subscribe(run: Interface.Subscriber<T>, invalidate?: Interface.Invalidator<T>): Interface.Unsubscriber;
     bind(): UnwrapRef<T>;
-    get compute(): Ref<UnwrapRef<T>>;
     destroy(): void;
 }

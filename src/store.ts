@@ -13,7 +13,7 @@ export class Store<T> implements Interface.IStore<T> {
     private _value: T
     private _unsubscribeStore
     private _unsubscribeWatch
-    private _bindedValue?: Ref<UnwrapRef<T>>
+    public compute: Ref<UnwrapRef<T>>
 
     constructor(value: T, start: Interface.StartStopNotifier<T> = Utils.noop) {
         this._value = value
@@ -74,7 +74,7 @@ export class Store<T> implements Interface.IStore<T> {
     }
 
     bind() {
-        if (this._bindedValue) return this._bindedValue.value
+        if (this.compute) return this.compute.value
         const bindedValue = ref(this._value)
         this._unsubscribeStore = this.subscribe((data) => {
             bindedValue.value = data as UnwrapRef<T>
@@ -85,17 +85,13 @@ export class Store<T> implements Interface.IStore<T> {
         }, {
             deep: true
         })
-        this._bindedValue = bindedValue
-
-        return this._bindedValue.value
-    }
-
-    get compute() {
-        return this._bindedValue as Ref<UnwrapRef<T>>
+        this.compute = bindedValue
+        return this.compute.value
     }
 
     destroy() {
-        this._bindedValue = undefined
+        // @ts-ignore
+        this.compute = undefined
         if (typeof this._unsubscribeStore == 'function')
             this._unsubscribeStore()
         if (typeof this._unsubscribeWatch == 'function')
