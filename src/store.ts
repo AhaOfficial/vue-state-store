@@ -13,21 +13,11 @@ export class Store<T> implements Interface.IStore<T> {
     private _value: T
     private unsubscribeStore
     private unsubscribeWatch
-    public value
+    private value?: UnwrapRef<T>
 
     constructor(value: T, start: Interface.StartStopNotifier<T> = Utils.noop) {
         this._value = value
         this.start = start
-
-        const bindedValue = ref(this._value)
-        this.unsubscribeStore = this.subscribe((data) => {
-            bindedValue.value = data as UnwrapRef<T>
-        })
-        this.unsubscribeWatch = watch(bindedValue, () => {
-            const dataOfObserverRemoved = JSON.parse(JSON.stringify(bindedValue.value))
-            this.set(dataOfObserverRemoved as T)
-        })
-        this.value = bindedValue.value
     }
 
     get(): T {
@@ -84,10 +74,21 @@ export class Store<T> implements Interface.IStore<T> {
     }
 
     bind() {
+        if (this.value) return this.value
+        const bindedValue = ref(this._value)
+        this.unsubscribeStore = this.subscribe((data) => {
+            bindedValue.value = data as UnwrapRef<T>
+        })
+        this.unsubscribeWatch = watch(bindedValue, () => {
+            const dataOfObserverRemoved = JSON.parse(JSON.stringify(bindedValue.value))
+            this.set(dataOfObserverRemoved as T)
+        })
+        this.value = bindedValue.value
         return this.value
     }
 
     destroy() {
+        this.value = undefined
         if (typeof this.unsubscribeStore == 'function')
             this.unsubscribeStore()
         if (typeof this.unsubscribeWatch == 'function')

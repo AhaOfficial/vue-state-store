@@ -48,21 +48,11 @@ var composition_api_1 = require("@vue/composition-api");
 var subscriberQueue = [];
 var Store = /** @class */ (function () {
     function Store(value, start) {
-        var _this = this;
         if (start === void 0) { start = Utils.noop; }
         this.stop = null;
         this.subscribers = [];
         this._value = value;
         this.start = start;
-        var bindedValue = composition_api_1.ref(this._value);
-        this.unsubscribeStore = this.subscribe(function (data) {
-            bindedValue.value = data;
-        });
-        this.unsubscribeWatch = composition_api_1.watch(bindedValue, function () {
-            var dataOfObserverRemoved = JSON.parse(JSON.stringify(bindedValue.value));
-            _this.set(dataOfObserverRemoved);
-        });
-        this.value = bindedValue.value;
     }
     Store.prototype.get = function () {
         return Utils.getStoreValue(this);
@@ -129,9 +119,22 @@ var Store = /** @class */ (function () {
         };
     };
     Store.prototype.bind = function () {
+        var _this = this;
+        if (this.value)
+            return this.value;
+        var bindedValue = composition_api_1.ref(this._value);
+        this.unsubscribeStore = this.subscribe(function (data) {
+            bindedValue.value = data;
+        });
+        this.unsubscribeWatch = composition_api_1.watch(bindedValue, function () {
+            var dataOfObserverRemoved = JSON.parse(JSON.stringify(bindedValue.value));
+            _this.set(dataOfObserverRemoved);
+        });
+        this.value = bindedValue.value;
         return this.value;
     };
     Store.prototype.destroy = function () {
+        this.value = undefined;
         if (typeof this.unsubscribeStore == 'function')
             this.unsubscribeStore();
         if (typeof this.unsubscribeWatch == 'function')
