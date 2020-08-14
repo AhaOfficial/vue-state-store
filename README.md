@@ -34,6 +34,7 @@
 * [🚀 Advanced Usage](#-advanced-usage)
   * [⏳ Asynchronous-tic Usage](#-asynchronous-tic-usage)
   * [💡 Vscode Intellisense Usage](#-vscode-intellisense-usage)
+  * [📮 (Advanced) State Use Function Design Pattern]()
 * [🤔 Q&A](#-qa)
   * [🧲 Q. Doesn't have a $store with all the state stores like vuex?](#-q-doesnt-have-a-store-with-all-the-state-stores-like-vuex)
   * [👀 Q. Will the changed value be rendered again if the `.bind()` value is changed?](#-q-will-the-changed-value-be-rendered-again-if-the-bind-value-is-changed)
@@ -164,6 +165,36 @@ In order to receive support for intellisense in the template after installing ve
 ```json
 "vetur.experimental.templateInterpolationService": true
 ```
+
+<br/>
+
+### 📮 (Advanced) State Use Function Design Pattern
+
+> `vue-state-store` provides examples of design patterns of functions that begin with `use~` similar to React Hooks to make the most of the composition API.
+
+State Use Function refers to the use of a function that is preceded by the word `use` (if there is a state called `useTodo` inside the component and receives the status store as a result).
+
+> This allows you to use the life cycle of the component in the state store.
+
+If you use the accessor(`.set() and .update()`)  to modify the state, it can be very cumbersome to create complex logic, unlike when you modify the existing general variables.
+
+`vue-state-store` allows for convenient change of state by directly accessing bindings within the store without the use of such an accessor. This design pattern is only a simple example of configuring the status usage function when using the Composition API (not necessarily), **If you need to modify the state in a complex way**, or **If you need to create multiple `compute` objects**.
+
+Even if you modify a bound value, the changes are automatically distributed to the callbacks you are subscribing to each time the value changes.
+
+<img src="https://i.imgur.com/rVsbcUj.png" width="600"/>
+
+> If you refer to the value of a bound store in a callback wrapped in `computed` , the callback will occur again whenever the value of that store changes. This reduces the fatigue of re-calculating each function as it is called, thus improving performance when using a state.
+
+<img src="https://i.imgur.com/V00omhP.png" width="600"/>
+
+> To define Vue's lifecycle or `computed`, you must create one isolated function, such as `useTodo`, and must be call within the component.
+
+<img src="https://i.imgur.com/8q4kaBd.png" width="600"/>
+
+> As shown above, you can use it within the template tag immediately after using useToto(). (Of course Typescript Intellisense is still supported.)
+
+<br/>
 
 <br/>
 
