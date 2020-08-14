@@ -34,7 +34,7 @@
 * [🚀 Advanced Usage](#-advanced-usage)
   * [⏳ Asynchronous-tic Usage](#-asynchronous-tic-usage)
   * [💡 Vscode Intellisense Usage](#-vscode-intellisense-usage)
-  * [📮 (Advanced) State Use Function Design Pattern]()
+  * [📮 (Advanced) State Use Function Design Pattern](#-advanced-state-use-function-design-pattern)
 * [🤔 Q&A](#-qa)
   * [🧲 Q. Doesn't have a $store with all the state stores like vuex?](#-q-doesnt-have-a-store-with-all-the-state-stores-like-vuex)
   * [👀 Q. Will the changed value be rendered again if the `.bind()` value is changed?](#-q-will-the-changed-value-be-rendered-again-if-the-bind-value-is-changed)
