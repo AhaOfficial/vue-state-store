@@ -18,6 +18,6 @@ module.exports = {
     },
 
     externals: {
-        "@vue/composition-api": "@vue/composition-api",
-    }
+        "@vue/composition-api": "VueCompositionAPI",
+    },
 }
