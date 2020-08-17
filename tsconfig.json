@@ -8,7 +8,7 @@
         "inlineSourceMap": false,
         "noImplicitAny": false,
         "module": "commonjs",
-        "target": "ES2015",
+        "target": "ES3",
         "types": [
             "node"
         ],

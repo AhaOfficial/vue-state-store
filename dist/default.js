@@ -6,6 +6,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     result["default"] = mod;
     return result;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const Default = __importStar(require("./"));
-exports.default = Default;
+exports.__esModule = true;
+var Default = __importStar(require("./"));
+exports["default"] = Default;
