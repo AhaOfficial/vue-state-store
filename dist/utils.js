@@ -1,39 +1,35 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.noop = function () { };
-exports.isPromise = function (value) {
+exports.noop = () => { };
+exports.isPromise = (value) => {
     return value && typeof value === 'object' && typeof value.then === 'function';
 };
-exports.run = function (callback) {
+exports.run = (callback) => {
     return callback();
 };
-exports.isFunction = function (thing) {
+exports.isFunction = (thing) => {
     return typeof thing === 'function';
 };
-exports.safeNotEqual = function (a, b) {
+exports.safeNotEqual = (a, b) => {
     return a != a
         ? b == b
         : a !== b || (a && typeof a === 'object') || typeof a === 'function';
 };
-exports.notEqual = function (a, b) {
+exports.notEqual = (a, b) => {
     return a != a ? b == b : a !== b;
 };
-exports.validateStore = function (store, name) {
+exports.validateStore = (store, name) => {
     if (store != null && typeof store.subscribe !== 'function')
-        throw new Error("'" + name + "' is not a store with a 'subscribe' method");
+        throw new Error(`'${name}' is not a store with a 'subscribe' method`);
 };
-exports.subscribe = function (store) {
-    var callbacks = [];
-    for (var _i = 1; _i < arguments.length; _i++) {
-        callbacks[_i - 1] = arguments[_i];
-    }
+exports.subscribe = (store, ...callbacks) => {
     if (store == null)
         return exports.noop;
-    var unsub = store.subscribe.apply(store, callbacks);
-    return unsub.unsubscribe ? function () { return unsub.unsubscribe(); } : unsub;
+    const unsub = store.subscribe(...callbacks);
+    return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
 };
-exports.getStoreValue = function (store) {
-    var value;
-    exports.subscribe(store, function (_) { return (value = _); })();
+exports.getStoreValue = (store) => {
+    let value;
+    exports.subscribe(store, (_) => (value = _))();
     return value;
 };

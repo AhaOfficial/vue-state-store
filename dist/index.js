@@ -7,15 +7,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Utils = __importStar(require("./utils"));
-var store_1 = require("./store");
+const Utils = __importStar(require("./utils"));
+const store_1 = require("./store");
 exports.Store = store_1.Store;
 /**
  * Create a store that allows both updating and reading by subscription.
  * @param {*=}value initial value
  * @param {StartStopNotifier=}start start and stop notifications for subscriptions
  */
-exports.store = function (value, start) {
-    if (start === void 0) { start = Utils.noop; }
+exports.store = (value, start = Utils.noop) => {
     return new store_1.Store(value, start);
 };
