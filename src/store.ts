@@ -4,7 +4,6 @@ import { ref, Ref, UnwrapRef, watch, WatchSource } from '@vue/composition-api'
 
 const subscriberQueue: any[] = []
 
-
 export class Store<T> implements Interface.IStore<T> {
     protected stop: Interface.Unsubscriber | null = null
     protected subscribers: Array<Interface.SubscribeInvalidateTuple<T>> = []
@@ -18,6 +17,9 @@ export class Store<T> implements Interface.IStore<T> {
     constructor(value: T, start: Interface.StartStopNotifier<T> = Utils.noop) {
         this._value = value
         this.start = start
+
+        const storeName = this.constructor.name
+        devtoolsBind(this, storeName)
     }
 
     get(): T {
@@ -96,4 +98,26 @@ export class Store<T> implements Interface.IStore<T> {
         if (typeof this._unsubscribeWatch == 'function')
             this._unsubscribeWatch()
     }
+}
+
+/**
+ * Processing points for nuxt
+ */
+const target: any = typeof window !== 'undefined'
+    ? window
+    : typeof global !== 'undefined'
+        ? global
+        : {}
+
+const devtoolsBind = async <T>(store: Interface.IStore<T>, storeName: string) => {
+    const devtoolsHook = target.__VUE_DEVTOOLS_GLOBAL_HOOK__
+    if (!devtoolsHook) return
+
+    try {
+        let VueStateStoreDevtools: any = undefined
+        // @ts-ignore
+        VueStateStoreDevtools = await import('vue-state-store-devtools')
+        VueStateStoreDevtools.devtoolsBind(store, storeName)
+
+    } catch (e) { }
 }
