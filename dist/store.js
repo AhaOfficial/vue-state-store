@@ -53,6 +53,8 @@ var Store = /** @class */ (function () {
         this.subscribers = [];
         this._value = value;
         this.start = start;
+        var storeName = this.constructor.name;
+        devtoolsBind(this, storeName);
     }
     Store.prototype.get = function () {
         return Utils.getStoreValue(this);
@@ -145,3 +147,36 @@ var Store = /** @class */ (function () {
     return Store;
 }());
 exports.Store = Store;
+/**
+ * Processing points for nuxt
+ */
+var target = typeof window !== 'undefined'
+    ? window
+    : typeof global !== 'undefined'
+        ? global
+        : {};
+var devtoolsBind = function (store, storeName) { return __awaiter(void 0, void 0, void 0, function () {
+    var devtoolsHook, VueStateStoreDevtools, e_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                devtoolsHook = target.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+                if (!devtoolsHook)
+                    return [2 /*return*/];
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                VueStateStoreDevtools = undefined;
+                return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require('vue-state-store-devtools')); })];
+            case 2:
+                // @ts-ignore
+                VueStateStoreDevtools = _a.sent();
+                VueStateStoreDevtools.devtoolsBind(store, storeName);
+                return [3 /*break*/, 4];
+            case 3:
+                e_1 = _a.sent();
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
