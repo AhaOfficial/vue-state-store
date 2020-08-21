@@ -147,6 +147,7 @@ var Store = /** @class */ (function () {
     return Store;
 }());
 exports.Store = Store;
+var externalDevtoolsModuleName = 'vue-state-store-devtools';
 /**
  * Processing points for nuxt
  */
@@ -167,7 +168,7 @@ var devtoolsBind = function (store, storeName) { return __awaiter(void 0, void 0
             case 1:
                 _a.trys.push([1, 3, , 4]);
                 VueStateStoreDevtools = undefined;
-                return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require('vue-state-store-devtools')); })];
+                return [4 /*yield*/, Promise.resolve().then(function () { return __importStar(require(externalDevtoolsModuleName)); })];
             case 2:
                 // @ts-ignore
                 VueStateStoreDevtools = _a.sent();
