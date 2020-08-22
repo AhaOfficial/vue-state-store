@@ -100,8 +100,6 @@ export class Store<T> implements Interface.IStore<T> {
     }
 }
 
-const externalDevtoolsModuleName = 'vue-state-store-devtools'
-
 /**
  * Processing points for nuxt
  */
@@ -116,10 +114,9 @@ const devtoolsBind = async <T>(store: Interface.IStore<T>, storeName: string) =>
     if (!devtoolsHook) return
 
     try {
-        let VueStateStoreDevtools: any = undefined
-        // @ts-ignore
-        VueStateStoreDevtools = await import(externalDevtoolsModuleName)
-        VueStateStoreDevtools.devtoolsBind(store, storeName)
+        // vue-state-store-devtools
+        if (typeof target.VueStateStoreDevtools != 'undefined')
+            target.VueStateStoreDevtools.devtoolsBind(store, storeName)
 
     } catch (e) { }
 }
