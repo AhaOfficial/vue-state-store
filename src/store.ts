@@ -81,12 +81,16 @@ export class Store<T> implements Interface.IStore<T> {
         this._unsubscribeStore = this.subscribe((data) => {
             bindedValue.value = data as UnwrapRef<T>
         })
-        this._unsubscribeWatch = watch(bindedValue.value as WatchSource<T>, () => {
-            const dataOfObserverRemoved = bindedValue.value
-            this.set(dataOfObserverRemoved as T)
-        }, {
-            deep: true
-        })
+        this._unsubscribeWatch = watch(
+            bindedValue.value as WatchSource<T>,
+            () => {
+                const dataOfObserverRemoved = bindedValue.value
+                this.set(dataOfObserverRemoved as T)
+            },
+            {
+                deep: true,
+            }
+        )
         this._bindedValue = bindedValue
         return this._bindedValue.value
     }
@@ -103,13 +107,17 @@ export class Store<T> implements Interface.IStore<T> {
 /**
  * Processing points for nuxt
  */
-const target: any = typeof window !== 'undefined'
-    ? window
-    : typeof global !== 'undefined'
+const target: any =
+    typeof window !== 'undefined'
+        ? window
+        : typeof global !== 'undefined'
         ? global
         : {}
 
-const devtoolsBind = async <T>(store: Interface.IStore<T>, storeName: string) => {
+const devtoolsBind = async <T>(
+    store: Interface.IStore<T>,
+    storeName: string
+) => {
     const devtoolsHook = target.__VUE_DEVTOOLS_GLOBAL_HOOK__
     if (!devtoolsHook) return
 
@@ -117,6 +125,5 @@ const devtoolsBind = async <T>(store: Interface.IStore<T>, storeName: string) =>
         // vue-state-store-devtools
         if (typeof target.VueStateStoreDevtools != 'undefined')
             target.VueStateStoreDevtools.devtoolsBind(store, storeName)
-
-    } catch (e) { }
+    } catch (e) {}
 }
