@@ -228,7 +228,7 @@ vote.syncWithNetwork()
 
 ### 📮 Binding within the Vue template
 
-> `vue-state-store` can easily bind the repository to the vue template tag, and the bound store continues to support Typescript Intellisense within the template tag. Typescript Intellisense is also supported when using embedded actions into the storage within the <script> tag.
+> `vue-state-store` can easily bind the repository to the vue template tag, and the bound store continues to support Typescript Intellisense within the template tag. Typescript Intellisense is also supported when using embedded actions into the storage within the script tag.
 
 -  The embedded action can be called just by calling the state through `import`.
 - The '`bind()` function automatically binds the storage into the template.

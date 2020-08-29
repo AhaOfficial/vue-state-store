@@ -16,7 +16,9 @@
 
 > The following multilingual documents are provided. (need pull request help)
 
-([한국어 문서 보기](https://github.com/AhaOfficial/vue-state-store/blob/master/docs/README.KR.md))
+- ([日本語 文書](https://github.com/AhaOfficial/vue-state-store/blob/master/docs/README.JP.md)) JP contributed by @yopinoji (thx! 😊)
+
+- ([한국어 문서](https://github.com/AhaOfficial/vue-state-store/blob/master/docs/README.KR.md)) 
 
 <br/>
 
@@ -25,6 +27,7 @@
 * [😊 Easy use! & Powerful application!](#-easy-use--powerful-application)
   * [💡 Advantages compared to vuex](#-advantages-compared-to-vuex)
   * [💬 Installation](#-installation)
+  * [🔮 Devtools Apply](#-devtools-apply)
   * [📬 Pub & Sub Model Description](#-pub--sub-model-description)
 * [😎 Basic Usage](#-basic-usage)
   * [📮 Primitive Type Pub & Sub](#-primitive-type-pub--sub)
@@ -35,6 +38,7 @@
   * [⏳ Asynchronous-tic Usage](#-asynchronous-tic-usage)
   * [💡 Vscode Intellisense Usage](#-vscode-intellisense-usage)
   * [📮 (Advanced) State Use Function Design Pattern](#-advanced-state-use-function-design-pattern)
+  * [📮 (Advanced) Declare-Define-Inject-Use Design Pattern](#-advanced-declare-define-inject-use-design-pattern)
 * [🤔 Q&A](#-qa)
   * [🧲 Q. Doesn't have a $store with all the state stores like vuex?](#-q-doesnt-have-a-store-with-all-the-state-stores-like-vuex)
   * [👀 Q. Will the changed value be rendered again if the `.bind()` value is changed?](#-q-will-the-changed-value-be-rendered-again-if-the-bind-value-is-changed)
@@ -67,6 +71,14 @@
 ```
 npm i vue-state-store
 ```
+
+<br/>
+
+### 🔮 Devtools Apply
+
+> `vue-state-store` supports `vue-devtools`. (You can see information about the state stores created through `vue-state-store` on the `vuex` tab.)
+
+[View Related Content](https://github.com/AhaOfficial/vue-state-store-devtools)
 
 <br/>
 
@@ -119,7 +131,7 @@ In `vue-state-store`, the distinction between action and motion is not required.
 
 ### 📮 Binding within the Vue template
 
-> `vue-state-store` can easily bind the repository to the vue template tag, and the bound store continues to support Typescript Intellisense within the template tag. Typescript Intellisense is also supported when using embedded actions into the storage within the <script> tag.
+> `vue-state-store` can easily bind the repository to the vue template tag, and the bound store continues to support Typescript Intellisense within the template tag. Typescript Intellisense is also supported when using embedded actions into the storage within the script tag.
 
 -  The embedded action can be called just by calling the state through `import`.
 - The '`bind()` function automatically binds the storage into the template.
@@ -195,6 +207,12 @@ Even if you modify a bound value, the changes are automatically distributed to t
 > As shown above, you can use it within the template tag immediately after using useToto(). (Of course Typescript Intellisense is still supported.)
 
 <br/>
+
+### 📮 (Advanced) Declare-Define-Inject-Use Design Pattern
+
+> Please check the design pattern on a separate page.
+
+[View Description](https://github.com/AhaOfficial/vue-state-store/blob/master/docs/0.advanced/README.EN.md)
 
 <br/>
 
