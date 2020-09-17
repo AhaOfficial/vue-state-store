@@ -18,7 +18,7 @@
 
 ## 😊 使いやすく強力な状態管理ライブラリ
 
-`vue-state-stor` は、従来の Vue でよく使われた Vuex モジュールを完全に代替するために開発されたモジュールです。 <u>**このモジュールは Type Script の効率を 200% 使用して、状態管理（state management）をとても容易にすることを目標にしています。**</u>
+`vue-state-store` は、従来の Vue でよく使われた Vuex モジュールを完全に代替するために開発されたモジュールです。 <u>**このモジュールは Type Script の効率を 200% 使用して、状態管理（state management）をとても容易にすることを目標にしています。**</u>
 
 <br/>
 
@@ -203,7 +203,7 @@ export const vote = new Vote({
     downVoteCount: 0,
 })
 
-// アクションと変換を使用する例を示します。
+// アクションによる状態の更新を使用する例を示します。
 vote.upVote()
 vote.downVote()
 vote.syncWithNetwork()
