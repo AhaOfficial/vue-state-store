@@ -1,8 +1,12 @@
 import * as Interface from './interface'
 import * as Utils from './utils'
 import { ref, Ref, UnwrapRef, watch, WatchSource } from '@vue/composition-api'
+declare const window: any
 
 const subscriberQueue: any[] = []
+export const storeMap: {
+    [storeName in string]: Interface.IStore<any>
+} = {}
 
 export class Store<T> implements Interface.IStore<T> {
     protected stop: Interface.Unsubscriber | null = null
@@ -19,6 +23,17 @@ export class Store<T> implements Interface.IStore<T> {
         this.start = start
 
         const storeName = this.constructor.name
+
+        if(typeof window !== 'undefined' &&
+            window.__NUXT__  &&
+            window.__NUXT__  &&
+            window.__NUXT__._vss &&
+            window.__NUXT__._vss[storeName]
+        ){
+            this._value = window.__NUXT__._vss[storeName]
+        }
+        storeMap[storeName] = this
+
         devtoolsBind(this, storeName)
     }
 

@@ -46,6 +46,7 @@ exports.__esModule = true;
 var Utils = __importStar(require("./utils"));
 var composition_api_1 = require("@vue/composition-api");
 var subscriberQueue = [];
+exports.storeMap = {};
 var Store = /** @class */ (function () {
     function Store(value, start) {
         if (start === void 0) { start = Utils.noop; }
@@ -54,6 +55,14 @@ var Store = /** @class */ (function () {
         this._value = value;
         this.start = start;
         var storeName = this.constructor.name;
+        if (typeof window !== 'undefined' &&
+            window.__NUXT__ &&
+            window.__NUXT__ &&
+            window.__NUXT__._vss &&
+            window.__NUXT__._vss[storeName]) {
+            this._value = window.__NUXT__._vss[storeName];
+        }
+        exports.storeMap[storeName] = this;
         devtoolsBind(this, storeName);
     }
     Store.prototype.get = function () {

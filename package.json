@@ -1,6 +1,6 @@
 {
     "name": "vue-state-store",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "📦 Vue State Management (with Publish & Subscribe pattern)",
     "scripts": {
         "build": "tsc",
@@ -10,7 +10,7 @@
         "export": "tsc && webpack"
     },
     "main": "./dist/index.js",
-    "type": "./dist/index.d.ts",
+    "types": "./dist/index.d.ts",
     "keywords": [
         "vue",
         "vuejs",

@@ -19,3 +19,19 @@ exports.store = function (value, start) {
     if (start === void 0) { start = Utils.noop; }
     return new store_1.Store(value, start);
 };
+/**
+ * Generate SSR Store Data
+ */
+exports.useSSR = function () {
+    var renderedStates = {};
+    for (var _i = 0, _a = Object.keys(store_1.storeMap); _i < _a.length; _i++) {
+        var storeName = _a[_i];
+        try {
+            var storeValue = store_1.storeMap[storeName].get();
+            if (storeValue)
+                renderedStates[storeName] = storeValue;
+        }
+        catch (e) { }
+    }
+    return { _vss: renderedStates };
+};
