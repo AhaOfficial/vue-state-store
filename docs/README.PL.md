@@ -1,50 +1,46 @@
 <img src="https://i.imgur.com/R2wksCG.png" width="400"/>
 
-
-
-
-
 # 📮 vue-state-store
 
-> Simple state management system that full supports for typescript.
+> Prosty system zarządzania stanem aplikacji, w pełni wspierający typescript
 
-📬 Distributed state management module system for Vue. <u>[Pub & Sub model based]</u>
-
-<br/>
-
-## 📔 Table of Contents
-
-* [😊 Easy use! & Powerful application!](#-easy-use--powerful-application)
-  * [💡 Advantages compared to vuex](#-advantages-compared-to-vuex)
-  * [💬 Installation](#-installation)
-  * [📬 Pub & Sub Model Description](#-pub--sub-model-description)
-* [😎 Basic Usage](#-basic-usage)
-  * [📮 Primitive Type Pub & Sub](#-primitive-type-pub--sub)
-  * [📮 Object Type Pub & Sub](#-object-type-pub--sub)
-  * [📮 Create state & embedded action](#-create-state--embedded-action)
-  * [📮 Binding within the Vue template](#-binding-within-the-vue-template)
-* [🚀 Advanced Usage](#-advanced-usage)
-  * [⏳ Asynchronous-tic Usage](#-asynchronous-tic-usage)
-  * [💡 Vscode Intellisense Usage](#-vscode-intellisense-usage)
-  * [📮 (Advanced) State Use Function Design Pattern](#-advanced-state-use-function-design-pattern)
-* [🤔 Q&A](#-qa)
-  * [🧲 Q. Doesn't have a $store with all the state stores like vuex?](#-q-doesnt-have-a-store-with-all-the-state-stores-like-vuex)
-  * [👀 Q. Will the changed value be rendered again if the `.bind()` value is changed?](#-q-will-the-changed-value-be-rendered-again-if-the-bind-value-is-changed)
-  * [📡 Q. Is the `.bind()` value work two way binding?](#-q-is-the-bind-value-work-two-way-binding)
-* [📔 License](#-license)
+📬 Rozproszony system zarządzania stanem dla Vue. <u>[Pub & Sub model based]</u>
 
 <br/>
 
-## 😊 Easy use! & Powerful application!
+## 📔 Spis treści
 
-`vue-state-store` is a module that is intended to completely replace the `vuex` modules that were popular with the `vue`. <u>**The purpose of this module is to make state management very easy by using 200% efficiency of typescript.**</u>
+-   [😊 Łatwy w użyciu! & Niesamowite możliwości!](#-easy-use--powerful-application)
+    -   [💡 Plusy w porównaniu do vuex](#-advantages-compared-to-vuex)
+    -   [💬 Instalacja](#-installation)
+    -   [📬 Opis Wzorca Pub & Sub](#-pub--sub-model-description)
+-   [😎 Podstawy](#-basic-usage)
+    -   [📮 Primitive Type Pub & Sub](#-primitive-type-pub--sub)
+    -   [📮 Object Type Pub & Sub](#-object-type-pub--sub)
+    -   [📮 Akcje wewnętrzę i store'a jako klasa](#-create-state--embedded-action)
+    -   [📮 Używanie wraz z Vue component template](#-binding-within-the-vue-template)
+-   [🚀 Używanie zaawansowane](#-advanced-usage)
+    -   [⏳ Asynchroniczność](#-asynchronous-tic-usage)
+    -   [💡 Vscode Intellisense](#-vscode-intellisense-usage)
+    -   [📮 (Zaawansowane) Wzorzec Funkcja Używająca Stan (and. State Use Function)](#-advanced-state-use-function-design-pattern)
+-   [🤔 Q&A](#-qa)
+    -   [🧲 Q. Czy istnieje globalna zmienna `$store` która zawiera wszystkie pomniejszy store'y jak w vuex?](#-q-doesnt-have-a-store-with-all-the-state-stores-like-vuex)
+    -   [👀 Q. Czy jeśli wartość `.bind()` zostanie zmieniona, komponent zostanie przerenderowany?](#-q-will-the-changed-value-be-rendered-again-if-the-bind-value-is-changed)
+    -   [📡 Q. Czy metoda `.bind()` utrzymuje powiązanie dwu-kierunkowe? (ang. two-way binding)](#-q-is-the-bind-value-work-two-way-binding)
+-   [📔 Licencja](#-license)
 
 <br/>
 
-### 💡 Advantages compared to vuex
+## 😊 Łatwy w użyciu! & Niesamowite możliwości!
 
-- **Low running curve** - Use simple publishing & subscription model
-- **Supports Typescript Intellisense** - Status & Actions & Mutation & When using variables within Templates
+`vue-state-store` to paczka która ma całkowicie zastąpić moduły (ang. modules) `vuex` które były często używane wraz z `vue`. <u>**Celem tej paczki jest sprawienie, żeby zarządzanie stanem było jak najprostsze, wykorzystując 200% możliwości typescript'a.**</u>
+
+<br/>
+
+### 💡 Plusy w porównaniu do vuex
+
+- **Szybki start, mało kodu boilerplate** - Use simple publishing & subscription model
+- **Podpowiedzi typów w TypeScript** - Status & Actions & Mutation & When using variables within Templates
 - **Auto-Bind function** - Easy vue template binding.
 - **Pure typescript class based definition** - no need to use mix-in
 - **A unified action structure** - Flexible use with no distinction between action and motion.
@@ -52,195 +48,180 @@
 
 <br/>
 
-### 💬 Installation
+### 💬 Instalacja
 
-> (Vue2, Vue3, Nuxt is supported. Automatic binding function in Composition API : .bind(')' is supported.)
+> (Zarówno Vue2, Vue3 jak i Nuxt są wspierane. Wspierane jest automatyczne bindowanie funkcji w Composition API : .bind(')'.)
 
 ```
 npm i vue-state-store
+yarn add vue-state-store
 ```
 
 <br/>
 
-### 📬 Pub & Sub Model Description
+### 📬 Opis Wzorca Pub & Sub
 
-> vue-state-store uses publish & subscription design patterns.
+> `vue-state-store` używa wzorca projektowego publish & subscription
 
-`vue-state-store` is a storage that exists in the memory where values are stored. The `.subscribe (callback)` function allows you to receive changed values in a callback when values in the storage change, and you can update the values in the storage through `.set (newValue)` and `.update((data) => data)`.
+`vue-state-store` to pewna przestrzeń wewnątrz pamięci w której przechowywane są dane. Metoda `.subscribe(callback)` pozwala na wychwytywanie zmian stanu poprzez funkcję callback. Możesz też zmienić stan store'a poprzez metody `.set(nowaWartość)` i `.update(staraWartość => nowaWartość)`
 
 <br/>
 
-## 😎 Basic Usage
+## 😎 Podstawy
 
->  `vue-state-store` is an easy way to manage both <u>state</u> and <u>actions</u> and <u>mutations</u> through a `function` or `class`.
+> `vue-state-store` to łatwy sposób na obsługę <u>stanów (ang. atate)</u>, <u>akcji</u> i <u>mutacji</u> poprzez funckcje lub klasy
 
 <br/>
 
 ### 📮 Primitive Type Pub & Sub
 
-> Primitive type means five basic types (number, string, boolean, null, undefined).  
+> Typy podstawowe (ang. primitives) oznaczają pięć podstawowych typów danych (liczba (number), napis (string), typ logiczny tak/nie (boolean), null, undefined).
 
 ```typescript
 import { store } from 'vue-state-store'
 
-// Create an object to store its state.
-const version = store(0) // Inserts the initial value.
+// Tworzenie obiektu aby przechowywać stan
+const version = store(0) // Jako pierwszy argument przekaż wartość początkową
 
-// Get
-version.get() // returns 0.
+version.get() // zwróci 0, czyli wartość początkową.
 
-// Set
-version.set(1) // Update state to 1.
+version.set(1) // Ustawia stan na podaną wartość, czyli w tym przypadku 1.
 
-// Update
-version.update((data) => { // Add 1 to the existing state value.
+version.update(data => {
+    // jako argument callback'a otrzymujesz wartość stanu
+    // zinkrementuj wartość i zwróć ją
     data += 1
     return data
 })
 
-// Subscribe
-version.subscribe((data)=> {
-    console.log('The following values have been changed:: ', data)
+version.subscribe(data => {
+    console.log('Następujące wartości zostały zmienione: ', data)
 })
 
-// Unsubscribable
-const unsubscribe =
-    version.subscribe((data) => {
-        console.log('The following values have been changed:', data)
-    })
-// You can abort a storage subscription at
-// any time by invoking the function below.
+const unsubscribe = version.subscribe(data => {
+    console.log('Następujące wartości zostały zmienione:', data)
+})
+// Możesz przerwać subkskrybowanie stanu w dowolnym momencie
+// poprzez wywołanie funkcji `unsubscribe()`
 unsubscribe()
 ```
 
-
-
-> The `.subscribe()` function, when the execution, gives a function as a return value, which can interrupt the storage subscription at any time. So I write that value name of "unsubscribe".
+> Funkcja `.subscribe()` zwraca funkcję która przerywa subskrybcję
 
 <br/>
 
 ### 📮 Object Type Pub & Sub
 
-> If you look below, you can see that there is little difference between the top and the usage.
+> Jeśli zerkniesz niżej, możesz zobaczyć, że istnieją pewne rónice między przykładami wyżej
 >
->  In `store(value)`, the value can be a primary type or object.
+> `store` może przyjmować prymitywy lub obiekty.
 
 ```typescript
 import { store } from 'vue-state-store'
 
-// Create an object to store its state.
+// Stwórz obiekt do przechowywania stanu.
 const detail = store({
-  version: 0,
-  author: 'AhaOfficial'
-}) // Inserts the initial value.
+    version: 0,
+    author: 'AhaOfficial',
+}) // I jako argument podaj obiekt początkowy
 
-// Get
-detail.get() // returns object.
+detail.get() // Zwraca obiekt
 
-// Set
 detail.set({
-  version: 1,
-  author: 'AhaOfficial'
-}) // Update the state to that value.
+    version: 1,
+    author: 'AhaOfficial',
+}) // Ustaw nową wartość stanu
 
-// Update
-detail.update((data) => { // Add 1 to the existing state value.
+detail.update((data) => {
+    // zinkrementuj wartość i zwróć ją
     data.version += 1
     return data
 })
 
-// Subscribe
-detail.subscribe((data)=> {
-    console.log('The following values have been changed:', data)
+detail.subscribe(data => {
+    console.log('Następujące wartości zostały zmienione:', data)
 })
 
-// Unsubscribable
-const unsubscribe =
-    detail.subscribe((data) => {
-        console.log('The following values have been changed:', data)
-    })
-// You can abort a storage subscription at
-// any time by invoking the function below.
+const unsubscribe = detail.subscribe(data => {
+    console.log('Następujące wartości zostały zmienione:', data)
+})
+// Podobnie jak wcześniej możesz przerwać subkskrybowanie
+// poprzez wywołanie funkcji `unsubscribe()` w dowolnym momencie
 unsubscribe()
 ```
 
-
-
 <br/>
 
-### 📮 Create state & embedded action
+### 📮 Akcje wewnętrzę i store'a jako klasa
 
-> `vue-state-store` can define embedded actions by inheriting classes.
+> w `vue-state-store` możesz stworzyć nową klasę store'a poprzez dziedziczenie z klasy Store.
 
-In `vue-state-store`, the distinction between action and motion is not required.
+`vue-state-store`, nie wymaga rozróżnienia między akcjami i mutacjami
 
-- By creating any function in the class, you can configure **<u>Embedded action</u>**.
-- Any function that transforms a state without being embedded in the class is called <u>**Outside Action**</u>.
+-   Poprzez stworzenie funkcji wewnątrz klasy, tworzysz **<u>Wewnętrzne (ang. Embedded) akcje</u>**.
+-   Każda funkcja która zmienia stan niebędąca wewnętrzną (ang. Embedded) akcją, jest nazywana <u>**Akcją Zewnętrzną (ang. outside)**</u>.
 
 ```typescript
 import { Store } from 'vue-state-store'
 
-// Predefine the interface for the state.
+// Określanie interface'u dla stanu
 export interface IVote {
     upVoteCount: number
     downVoteCount: number
 }
 
-// Inherit the Store to create the class.
+// Następnie tworzymy klasę stanu która dziedziczy z klasy `Store`
 export class Vote extends Store<IVote> {
-
-    // Action or Mutation can be freely
-    // defined as a function of typescript
-    // class using .update and .set
+    // Teraz możemy zdefiniować wewnętrzne akcje
+    // jako metody używające metod .update i .set
     async upVote() {
-        await this.update((data) => {
+        await this.update(data => {
             data.upVoteCount += 1
             return data
         })
     }
+
     async downVote() {
-        await this.update((data) => {
+        await this.update(data => {
             data.upVoteCount -= 1
             return data
         })
     }
+
     syncWithNetwork() {
-        // API communication function
-        // is also freely available.
+        // Inne metody również będą
+        // dostępne z poziomu instancji.
     }
 }
 
-// create a state store and add the initial value.
+// tworzenie store'a z wartością początkową
 export const vote = new Vote({
     upVoteCount: 0,
     downVoteCount: 0,
 })
 
-// Examples of using actions and mutations
+// Przykłady wykorzystywania akcji/mutacji:
 vote.upVote()
 vote.downVote()
 vote.syncWithNetwork()
 ```
 
-
-
 <br/>
 
-### 📮 Binding within the Vue template
+### 📮 Używanie wraz z Vue component template
 
-> `vue-state-store` can easily bind the repository to the vue template tag, and the bound store continues to support Typescript Intellisense within the template tag. Typescript Intellisense is also supported when using embedded actions into the storage within the script tag.
+> `vue-state-store` może być w łatwy sposób wykorzystywane wewnątrz tagu template we vue, nadal zachowując wszystkie informacje o typach. Informacje o typach TypeScript są też obsługiwane kiedy używasz *akcji wewnętrznych* wewnątrz tagu `<script>`
 
--  The embedded action can be called just by calling the state through `import`.
-- The '`bind()` function automatically binds the storage into the template.
-  - It is recommended to put '$' in front of the existing storage name as a naming rule, as shown in `return { $vote: vote.bind() }` .
-  - The `.bind()` function is recommended to be used within the `setup` function of <u>**@vue/composition-api**</u>.
+-   Akcje wewnętrzne mogą być łatwo używane poprzez obiekt zaimportowany stanu
+-   Metoda `.bind()` utrzymuje reaktywne powiązanie między stanem, a szablonem komponentu
+    - Zalecane jest poprzedzanie nazwy stanu (wewnątrz komponentu) znakiem dolara ('\$') w taki sposób: `{ return $vote: vote.bind() }`
+    - Metoda `.bind()` powinna być używana wraz z <u>**@vue/composition-api**</u>, wewnątrz metody `setup` lub skryptu setup w Vue3
 
-```typescript
+```vue
 <template>
     <div>
         <!--
-        TypeScript Intellisense is still supported
-        when using stores in template tags.
+            Informacje o typach są w pełni dostępne w tym miejscu
         -->
         <h1>upVoteCount: {{ $vote.upVoteCount }}</h1>
         <h1>downVoteCount: {{ $vote.downVoteCount }}</h1>
@@ -250,18 +231,17 @@ vote.syncWithNetwork()
 <script lang="ts">
     import * as VueAPI from '@vue/composition-api'
 
-    // Import a store instance.
+    // Importujemy instancję store'a
     import { vote } from '~/store'
 
     export default VueAPI.defineComponent({
         setup(props, context) {
 
-            // Run upVote every second.
-            // (You can see that values are reflected
-            // in the template every second.)
+            // I co każdą sekundę wywołujemy mutację `upVote`
+            // (Szblon zmieni się co sekundę)
             setInterval(() => vote.upVote(), 1000)
 
-            // Bind store values to template tags automatically.
+            // Stwarzamy reaktywne powiązanie pomiędzy zawartością store'a a vue
             return {
                 $vote: vote.bind()
             }
@@ -270,23 +250,21 @@ vote.syncWithNetwork()
 </script>
 ```
 
+<br/>
 
+## 🚀 Używanie zaawansowane
+
+> Objaśnienie nieco bardziej zaawansowanych sposobów używania. (Krzywa uczenia pozostaje taka sama :)
 
 <br/>
 
-## 🚀 Advanced Usage
+### ⏳ Asynchroniczność
 
-> Explain the advanced ways to use it. (This does not raise the learning curve.)
-
-<br/>
-
-### ⏳ Asynchronous-tic Usage
-
-> The function `.update()` and '.set()' return Promise.
+> Metody `.update()` i `.set()` zwracają obietnice
 
 <br/>
 
-- `await` allows certain logic to run after the update job completes when you update the storage values.
+-   `await` umożliwia zatrzymanie bieżącej funkcji do zakończeniu zadania aktualizacji wartości store'a.
 
 ```typescript
 // Promise Update
@@ -297,34 +275,29 @@ await version.update((data) => {
 await version.set({})
 ```
 
-
-
-  
-
-- You can also define callbacks to async that are passed to the update function.
+-   Callback przekazywany do metody `.update()` może zwracać konkretną wartość, ale również obietnicę
 
 ```typescript
 // Promise Update
-await detail.update(
-    async (data) => {
-        const response = await fetch('https://~~~')
-        data = response.data
-        return data
-    }
-)
+await detail.update(async (data) => {
+    const response = await fetch('https://~~~')
+    data = response.data
+    return data
+})
 ```
-
-
 
 <br/>
 
 ### 💡 Vscode Intellisense Usage
 
->  To use both **vscode** and **typescript** at the same time and need some Intellisense support, you can obtain the module below.
+> To use both **vscode** and **typescript** at the same time and need some Intellisense support, you can obtain the module below.
+> Żeby **typescript'u** w raz z **vscode'em** trzeba odpowiednio przygotować VsCode. Najpierw (jeśli jeszcze tego nie zrobiłeś ;)  zainstaluj poniższe rozszerzenie
 
-[Vetur]: https://marketplace.visualstudio.com/items?itemName=octref.vetur
+[vetur]: https://marketplace.visualstudio.com/items?itemName=octref.vetur
 
 In order to receive support for intellisense in the template after installing vetur, the following option should be added to the vscode setting.
+
+Żeby włączyć wsparcie Intellisense dla typów TypeScript dodaj następującą linię do opcji VsCode (Ctrl+,)
 
 ```json
 "vetur.experimental.templateInterpolationService": true
@@ -332,17 +305,19 @@ In order to receive support for intellisense in the template after installing ve
 
 <br/>
 
-### 📮 (Advanced) State Use Function Design Pattern
+### 📮 (Zaawansowane) Wzorzec Funkcja Używająca Stan (and. State Use Function)
 
-> `vue-state-store` provides examples of design patterns of functions that begin with `use~` similar to React Hooks to make the most of the composition API.
+> `vue-state-store` przykłady użycia wzorca funkcji używającej stan. Taka funkcja zaczyna się od "use~" jest to podobne do hooków React'a i umożliwia pełne wykorzystanie możliwości Composition API we Vue3.
 
-State Use Function refers to the use of a function that is preceded by the word `use` (if there is a state called `useTodo` inside the component and receives the status store as a result).
+Funkcja Używająca Stan oznacza funkcję poprzedzoną słowem `use`, zwracającą stan
 
-> This allows you to use the life cycle of the component in the state store.
+> Ten wzorzec pozwala ci m.in. na używanie metod cyklu życia komponentu (ang. life cycle) w metodach store'a.
 
-If you use the accessor(`.set() and .update()`)  to modify the state, it can be very cumbersome to create complex logic, unlike when you modify the existing general variables.
+Jeśli używasz metod dostępu(`.set()` i `.update()`) żeby modyfikować stan, tworzenie złożonej logiki może być bardzo kłopotliwe, w przeciwieństwie do modyfikowania istniejących zmiennych.
 
-`vue-state-store` allows for convenient change of state by directly accessing bindings within the store without the use of such an accessor. This design pattern is only a simple example of configuring the status usage function when using the Composition API (not necessarily), **If you need to modify the state in a complex way**, or **If you need to create multiple `compute` objects**.
+`vue-state-store` pozwala na łatwą modyfikację stanu bezpośrednio przez zbindowany obiekt, nie ma potrzeby używać dodatkowych funkcji
+
+`vue-state-store` allows for convenient change of state by directly accessing bindings within the store without the use of such an accessor. Ten wzorzec projektowy to tylko prosty przykład konfigurowania funkcji użycia statusu podczas korzystania z interfejsu Composition API (wzorca można używać bez Composition API), **Jeśli musisz modyfikować stan w bardziej złożony sposób**, lub **If you need to create multiple `compute` objects**.
 
 Even if you modify a bound value, the changes are automatically distributed to the callbacks you are subscribing to each time the value changes.
 
@@ -357,22 +332,21 @@ export interface ITodo {
 
 // Defines the state class.
 export class Todo extends Store<ITodo> {
-
     // Bind the state value within the store class.
     value = this.bind()
 
     // Defines the computed value.
     pending = VueAPI.computed(() => {
-        return this.value.todoList.filter(item => {
+        return this.value.todoList.filter((item) => {
             return item.indexOf('(DONE)') == -1
         })
     })
 
- 	  // Add a Todo.
+    // Add a Todo.
     addItem(newTodo) {
         this.value.todoList.unshift(newTodo)
     }
-  
+
     // Delete A todo
     deleteItem(item: string) {
         this.value.todoList.splice(this.value.todoList.indexOf(item), 1)
@@ -382,32 +356,27 @@ export class Todo extends Store<ITodo> {
     getTodos() {
         try {
             if (window.localStorage.getItem('todo_list')) {
-                this.value.todoList =
-                    JSON.parse(
-                        window.localStorage.getItem('todo_list')
-                    )
+                this.value.todoList = JSON.parse(
+                    window.localStorage.getItem('todo_list')
+                )
             }
-        } catch (e) { }
+        } catch (e) {}
     }
-
 }
 ```
-
-
 
 > If you refer to the value of a bound store in a callback wrapped in `computed` , the callback will occur again whenever the value of that store changes. This reduces the fatigue of re-calculating each function as it is called, thus improving performance when using a state.
 
 ```typescript
 // Defines the state use function.
 export const useTodo = () => {
-
     // Defines the initial value of the store.
     const todo = new Todo({
         todoList: [
             'Give the peanuts to squirrel.',
             'Giving Churu to a Cat.',
             'Create Vue Example.',
-        ]
+        ],
     })
 
     // Load the state values that
@@ -416,19 +385,18 @@ export const useTodo = () => {
 
     // Store values on local storage
     // when the todolist changes.
-    todo.subscribe(data => {
+    todo.subscribe((data) => {
         try {
             window.localStorage.setItem(
                 'todo_list',
-                JSON.stringify(data.todoList))
-        } catch (e) { }
+                JSON.stringify(data.todoList)
+            )
+        } catch (e) {}
     })
 
     return todo
 }
 ```
-
-
 
 > To define Vue's lifecycle or `computed`, you must create one isolated function, such as `useTodo`, and must be call within the component.
 
@@ -440,13 +408,11 @@ export default VueAPI.defineComponent({
     setup(props, context) {
         return {
             // Use the Todo state in this component.
-            todo: useTodo()
+            todo: useTodo(),
         }
-    }
+    },
 })
 ```
-
-
 
 > As shown above, you can use it within the template tag immediately after using useToto(). (Of course Typescript Intellisense is still supported.)
 
@@ -456,37 +422,40 @@ export default VueAPI.defineComponent({
 
 ## 🤔 Q&A
 
-> Questions can also be asked through the Github Issue section.
+> Pytania możesz zadawać w github issues
 
   <br/>
 
-### 🧲 Q. Doesn't have a $store with all the state stores like vuex?
+### 🧲 Q. Czy istnieje globalna zmienna `$store` która zawiera wszystkie pomniejszy store'y jak w vuex?
 
->  A. No, it's not. It's a non-recommended design pattern.
+> A. Nie, nie ma. Nie jest to rekomendowana praktyka
 
-it's recommended that you import and use only a few stores after creating any index.ts file, , such as `import { vote } from '~/store`. `vue-state-store` has a distributed structure and can only refer to each other individually if each storage is required.
+Zaleca się importowanie i używanie tylko kilku store'ów w każdym pliku
 
-`vue-state-store` consists of `vue` completely independent (until it is used within the vue template tag through the `.bind()` function).
+np. `import { vote } from '@/store`
 
-<br/>
+`vue-state-store` ma <u>rozproszoną strukturę</u> i do każdego store'a może się odnosić tylko bezpośrednio.
 
-### 👀 Q. Will the changed value be rendered again if the `.bind()` value is changed?
-
-> A. Yes, the storage values changed through the ref of vue are reflected in the DOM through template tags in real time.
+`vue-state-store` jest całkowicie niezależny od `vue` dopóki nie zostanie użyty wewnątrz vue template poprzez metodę `.bind()`
 
 <br/>
 
-### 📡 Q. Is the `.bind()` value work two way binding?
+### 👀 Q. Czy jeśli wartość `.bind()` zostanie zmieniona, komponent zostanie przerenderowany?
 
-> A. Yes, the binding value changes as the storage value changes, and the storage value changes as the binding value changes.
+> A. Taj, zmiany stanu są natychmiastowo odzwierciedlenie wartości w DOM
+
+<br/>
+
+### 📡 Q. Czy metoda `.bind()` utrzymuje powiązanie dwu-kierunkowe? (ang. two-way binding)
+
+> A. Tak, wartość zbindowana (powiązana) ze store'em zmieni się w momencie zmiany wartości w store'rze i odwrotnie
 
 <br/>
 
 <br/>
 
-## 📔 License
+## 📔 Licencja
 
 > Copyright (c) 2020 AhaOfficial
 
-**MIT Licensed**
-
+**Licencja MIT**
