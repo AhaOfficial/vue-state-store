@@ -10,23 +10,23 @@
 
 ## 📔 Spis treści
 
--   [😊 Łatwy w użyciu! & Niesamowite możliwości!](#-easy-use--powerful-application)
-    -   [💡 Plusy w porównaniu do vuex](#-advantages-compared-to-vuex)
-    -   [💬 Instalacja](#-installation)
-    -   [📬 Opis Wzorca Pub & Sub](#-pub--sub-model-description)
--   [😎 Podstawy](#-basic-usage)
+-   [😊 Łatwy w użyciu! & Niesamowite możliwości!](#-łatwy-w-użyciu--niesamowite-możliwości)
+    -   [💡 Plusy w porównaniu do vuex](#-plusy-w-porównaniu-do-vuex)
+    -   [💬 Instalacja](#-instalacja)
+    -   [📬 Opis Wzorca Pub & Sub](#-opis-wzorca-pub--sub)
+-   [😎 Podstawy](#-podstawy)
     -   [📮 Primitive Type Pub & Sub](#-primitive-type-pub--sub)
     -   [📮 Object Type Pub & Sub](#-object-type-pub--sub)
-    -   [📮 Akcje wewnętrzę i store'a jako klasa](#-create-state--embedded-action)
-    -   [📮 Używanie wraz z Vue component template](#-binding-within-the-vue-template)
--   [🚀 Używanie zaawansowane](#-advanced-usage)
-    -   [⏳ Asynchroniczność](#-asynchronous-tic-usage)
-    -   [💡 Vscode Intellisense](#-vscode-intellisense-usage)
-    -   [📮 (Zaawansowane) Wzorzec Funkcja Używająca Stan (and. State Use Function)](#-advanced-state-use-function-design-pattern)
+    -   [📮 Akcje wewnętrzę i store'a jako klasa](#-akcje-wewnętrzę-i-storea-jako-klasa)
+    -   [📮 Używanie wraz z Vue component template](#-używanie-wraz-z-vue-component-template)
+-   [🚀 Używanie zaawansowane](#-używanie-zaawansowane)
+    -   [⏳ Asynchroniczność](#-asynchroniczność)
+    -   [💡 Vscode Intellisense](#-vscode-intellisense)
+    -   [📮 (Zaawansowane) Wzorzec Funkcja Używająca Stan (and. State Use Function)](#-zaawansowane-wzorzec-funkcja-używająca-stan-and-state-use-function)
 -   [🤔 Q&A](#-qa)
-    -   [🧲 Q. Czy istnieje globalna zmienna `$store` która zawiera wszystkie pomniejszy store'y jak w vuex?](#-q-doesnt-have-a-store-with-all-the-state-stores-like-vuex)
-    -   [👀 Q. Czy jeśli wartość `.bind()` zostanie zmieniona, komponent zostanie przerenderowany?](#-q-will-the-changed-value-be-rendered-again-if-the-bind-value-is-changed)
-    -   [📡 Q. Czy metoda `.bind()` utrzymuje powiązanie dwu-kierunkowe? (ang. two-way binding)](#-q-is-the-bind-value-work-two-way-binding)
+    -   [🧲 Q. Czy istnieje globalna zmienna `$store` która zawiera wszystkie pomniejszy store'y jak w vuex?](#-q-czy-istnieje-globalna-zmienna-store-która-zawiera-wszystkie-pomniejszy-storey-jak-w-vuex)
+    -   [👀 Q. Czy jeśli wartość `.bind()` zostanie zmieniona, komponent zostanie przerenderowany?](#-q-czy-istnieje-globalna-zmienna-store-która-zawiera-wszystkie-pomniejszy-storey-jak-w-vuex)
+    -   [📡 Q. Czy metoda `.bind()` utrzymuje powiązanie dwu-kierunkowe? (ang. two-way binding)](#-q-czy-metoda-bind-utrzymuje-powiązanie-dwu-kierunkowe-ang-two-way-binding)
 -   [📔 Licencja](#-license)
 
 <br/>
@@ -288,7 +288,7 @@ await detail.update(async (data) => {
 
 <br/>
 
-### 💡 Vscode Intellisense Usage
+### 💡 Vscode Intellisense
 
 > To use both **vscode** and **typescript** at the same time and need some Intellisense support, you can obtain the module below.
 > Żeby **typescript'u** w raz z **vscode'em** trzeba odpowiednio przygotować VsCode. Najpierw (jeśli jeszcze tego nie zrobiłeś ;)  zainstaluj poniższe rozszerzenie
