@@ -20,6 +20,8 @@
 
 - ([한국어 문서](https://github.com/AhaOfficial/vue-state-store/blob/master/docs/README.KR.md)) 
 
+- ([Dokumenty Polskie](https://github.com/AhaOfficial/vue-state-store/blob/master/docs/README.PL.md)) PL contributed by @Milesq (🎉 so thanks!)
+
 <br/>
 
 ## 📔 Table of Contents

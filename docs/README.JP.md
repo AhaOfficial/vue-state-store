@@ -377,8 +377,6 @@ export class Todo extends Store<ITodo> {
 
 > コールバック関数でバインドされたストアの値を `computed` でラップしたコールバック関数で参照すると、ストアの値が変わるたびにコールバック関数が再実行されます。これにより、関数が呼び出されるたびに各関数を再計算する疲労が軽減され、ストアを使用する際のパフォーマンスが向上します。
 
-<img src="https://i.imgur.com/NYRNad8.png" width="600"/>
-
 ```typescript
 // 状態管理関数を定義します。
 export const useTodo = () => {

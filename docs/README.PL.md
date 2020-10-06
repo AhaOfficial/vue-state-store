@@ -8,6 +8,12 @@
 
 <br/>
 
+## 🌎 Wsparcie w tłumaczeniach
+
+Dziękuję! @Milesq 😊😊
+
+<br/>
+
 ## 📔 Spis treści
 
 -   [😊 Łatwy w użyciu! & Niesamowite możliwości!](#-łatwy-w-użyciu--niesamowite-możliwości)
@@ -39,12 +45,12 @@
 
 ### 💡 Plusy w porównaniu do vuex
 
-- **Szybki start, mało kodu boilerplate** - Use simple publishing & subscription model
-- **Podpowiedzi typów w TypeScript** - Status & Actions & Mutation & When using variables within Templates
-- **Auto-Bind function** - Easy vue template binding.
-- **Pure typescript class based definition** - no need to use mix-in
-- **A unified action structure** - Flexible use with no distinction between action and motion.
-- **Allow flexible state use** - If you omit Mutation, you can use it as Getters.
+-   **Szybki start, mało kodu boilerplate** - Use simple publishing & subscription model
+-   **Podpowiedzi typów w TypeScript** - Status & Actions & Mutation & When using variables within Templates
+-   **Auto-Bind function** - Easy vue template binding.
+-   **Pure typescript class based definition** - no need to use mix-in
+-   **A unified action structure** - Flexible use with no distinction between action and motion.
+-   **Allow flexible state use** - If you omit Mutation, you can use it as Getters.
 
 <br/>
 
@@ -87,18 +93,18 @@ version.get() // zwróci 0, czyli wartość początkową.
 
 version.set(1) // Ustawia stan na podaną wartość, czyli w tym przypadku 1.
 
-version.update(data => {
+version.update((data) => {
     // jako argument callback'a otrzymujesz wartość stanu
     // zinkrementuj wartość i zwróć ją
     data += 1
     return data
 })
 
-version.subscribe(data => {
+version.subscribe((data) => {
     console.log('Następujące wartości zostały zmienione: ', data)
 })
 
-const unsubscribe = version.subscribe(data => {
+const unsubscribe = version.subscribe((data) => {
     console.log('Następujące wartości zostały zmienione:', data)
 })
 // Możesz przerwać subkskrybowanie stanu w dowolnym momencie
@@ -138,11 +144,11 @@ detail.update((data) => {
     return data
 })
 
-detail.subscribe(data => {
+detail.subscribe((data) => {
     console.log('Następujące wartości zostały zmienione:', data)
 })
 
-const unsubscribe = detail.subscribe(data => {
+const unsubscribe = detail.subscribe((data) => {
     console.log('Następujące wartości zostały zmienione:', data)
 })
 // Podobnie jak wcześniej możesz przerwać subkskrybowanie
@@ -175,14 +181,14 @@ export class Vote extends Store<IVote> {
     // Teraz możemy zdefiniować wewnętrzne akcje
     // jako metody używające metod .update i .set
     async upVote() {
-        await this.update(data => {
+        await this.update((data) => {
             data.upVoteCount += 1
             return data
         })
     }
 
     async downVote() {
-        await this.update(data => {
+        await this.update((data) => {
             data.upVoteCount -= 1
             return data
         })
@@ -210,12 +216,12 @@ vote.syncWithNetwork()
 
 ### 📮 Używanie wraz z Vue component template
 
-> `vue-state-store` może być w łatwy sposób wykorzystywane wewnątrz tagu template we vue, nadal zachowując wszystkie informacje o typach. Informacje o typach TypeScript są też obsługiwane kiedy używasz *akcji wewnętrznych* wewnątrz tagu `<script>`
+> `vue-state-store` może być w łatwy sposób wykorzystywane wewnątrz tagu template we vue, nadal zachowując wszystkie informacje o typach. Informacje o typach TypeScript są też obsługiwane kiedy używasz _akcji wewnętrznych_ wewnątrz tagu `<script>`
 
 -   Akcje wewnętrzne mogą być łatwo używane poprzez obiekt zaimportowany stanu
 -   Metoda `.bind()` utrzymuje reaktywne powiązanie między stanem, a szablonem komponentu
-    - Zalecane jest poprzedzanie nazwy stanu (wewnątrz komponentu) znakiem dolara ('\$') w taki sposób: `{ return $vote: vote.bind() }`
-    - Metoda `.bind()` powinna być używana wraz z <u>**@vue/composition-api**</u>, wewnątrz metody `setup` lub skryptu setup w Vue3
+    -   Zalecane jest poprzedzanie nazwy stanu (wewnątrz komponentu) znakiem dolara ('\$') w taki sposób: `{ return $vote: vote.bind() }`
+    -   Metoda `.bind()` powinna być używana wraz z <u>**@vue/composition-api**</u>, wewnątrz metody `setup` lub skryptu setup w Vue3
 
 ```vue
 <template>
@@ -229,24 +235,23 @@ vote.syncWithNetwork()
 </template>
 
 <script lang="ts">
-    import * as VueAPI from '@vue/composition-api'
+import * as VueAPI from '@vue/composition-api'
 
-    // Importujemy instancję store'a
-    import { vote } from '~/store'
+// Importujemy instancję store'a
+import { vote } from '~/store'
 
-    export default VueAPI.defineComponent({
-        setup(props, context) {
+export default VueAPI.defineComponent({
+    setup(props, context) {
+        // I co każdą sekundę wywołujemy mutację `upVote`
+        // (Szblon zmieni się co sekundę)
+        setInterval(() => vote.upVote(), 1000)
 
-            // I co każdą sekundę wywołujemy mutację `upVote`
-            // (Szblon zmieni się co sekundę)
-            setInterval(() => vote.upVote(), 1000)
-
-            // Stwarzamy reaktywne powiązanie pomiędzy zawartością store'a a vue
-            return {
-                $vote: vote.bind()
-            }
-        },
-    })
+        // Stwarzamy reaktywne powiązanie pomiędzy zawartością store'a a vue
+        return {
+            $vote: vote.bind(),
+        }
+    },
+})
 </script>
 ```
 
@@ -291,7 +296,7 @@ await detail.update(async (data) => {
 ### 💡 Vscode Intellisense
 
 > To use both **vscode** and **typescript** at the same time and need some Intellisense support, you can obtain the module below.
-> Żeby **typescript'u** w raz z **vscode'em** trzeba odpowiednio przygotować VsCode. Najpierw (jeśli jeszcze tego nie zrobiłeś ;)  zainstaluj poniższe rozszerzenie
+> Żeby **typescript'u** w raz z **vscode'em** trzeba odpowiednio przygotować VsCode. Najpierw (jeśli jeszcze tego nie zrobiłeś ;) zainstaluj poniższe rozszerzenie
 
 [vetur]: https://marketplace.visualstudio.com/items?itemName=octref.vetur
 
