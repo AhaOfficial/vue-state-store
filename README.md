@@ -4,7 +4,7 @@
 
 
 
-# 📮 vue-state-store
+# 📮 vue-state-store (vss)
 
 > Simple state management system that full supports for typescript.
 
@@ -51,7 +51,7 @@
 
 ## 😊 Easy use! & Powerful application!
 
-`vue-state-store` is a module that is intended to completely replace the `vuex` modules that were popular with the `vue`. <u>**The purpose of this module is to make state management very easy by using 200% efficiency of typescript.**</u>
+`vue-state-store (vss)` is a module that is intended to completely replace the `vuex` modules that were popular with the `vue`. <u>**The purpose of this module is to make state management very easy by using 200% efficiency of typescript.**</u>
 
 <br/>
 

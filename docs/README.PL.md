@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/R2wksCG.png" width="400"/>
 
-# 📮 vue-state-store
+# 📮 vue-state-store (vss)
 
 > Prosty system zarządzania stanem aplikacji, w pełni wspierający typescript
 
@@ -39,7 +39,7 @@ Dziękuję! @Milesq 😊😊
 
 ## 😊 Łatwy w użyciu! & Niesamowite możliwości!
 
-`vue-state-store` to paczka która ma całkowicie zastąpić moduły (ang. modules) `vuex` które były często używane wraz z `vue`. <u>**Celem tej paczki jest sprawienie, żeby zarządzanie stanem było jak najprostsze, wykorzystując 200% możliwości typescript'a.**</u>
+`vue-state-store (vss)` to paczka która ma całkowicie zastąpić moduły (ang. modules) `vuex` które były często używane wraz z `vue`. <u>**Celem tej paczki jest sprawienie, żeby zarządzanie stanem było jak najprostsze, wykorzystując 200% możliwości typescript'a.**</u>
 
 <br/>
 
