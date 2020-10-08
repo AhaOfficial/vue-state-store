@@ -24,12 +24,13 @@ export class Store<T> implements Interface.IStore<T> {
 
         const storeName = this.constructor.name
 
-        if(typeof window !== 'undefined' &&
-            window.__NUXT__  &&
-            window.__NUXT__  &&
+        if (
+            typeof window !== 'undefined' &&
+            window.__NUXT__ &&
+            window.__NUXT__ &&
             window.__NUXT__._vss &&
             window.__NUXT__._vss[storeName]
-        ){
+        ) {
             this._value = window.__NUXT__._vss[storeName]
         }
         storeMap[storeName] = this
@@ -97,7 +98,7 @@ export class Store<T> implements Interface.IStore<T> {
             bindedValue.value = data as UnwrapRef<T>
         })
         this._unsubscribeWatch = watch(
-            bindedValue.value as WatchSource<T>,
+            bindedValue as WatchSource<T>,
             () => {
                 const dataOfObserverRemoved = bindedValue.value
                 this.set(dataOfObserverRemoved as T)

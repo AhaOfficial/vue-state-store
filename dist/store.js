@@ -137,7 +137,7 @@ var Store = /** @class */ (function () {
         this._unsubscribeStore = this.subscribe(function (data) {
             bindedValue.value = data;
         });
-        this._unsubscribeWatch = composition_api_1.watch(bindedValue.value, function () {
+        this._unsubscribeWatch = composition_api_1.watch(bindedValue, function () {
             var dataOfObserverRemoved = bindedValue.value;
             _this.set(dataOfObserverRemoved);
         }, {
