@@ -8,27 +8,27 @@ export type SubscribeInvalidateTuple<T> = [Subscriber<T>, Invalidator<T>]
 export type StartStopNotifier<T> = (set: Subscriber<T>) => Unsubscriber | void
 
 export interface IStore<T> {
-    /**
-     * Get value and inform subscribers.
-     */
-    get(): T
+  /**
+   * Get value and inform subscribers.
+   */
+  get(): T
 
-    /**
-     * Set value and inform subscribers.
-     * @param value to set
-     */
-    set(value?: T): void
+  /**
+   * Set value and inform subscribers.
+   * @param value to set
+   */
+  set(value?: T): void
 
-    /**
-     * Subscribe on value changes.
-     * @param run subscription callback
-     * @param invalidate cleanup callback
-     */
-    subscribe(run: Subscriber<T>, invalidate?: Invalidator<T>): Unsubscriber
+  /**
+   * Subscribe on value changes.
+   * @param run subscription callback
+   * @param invalidate cleanup callback
+   */
+  subscribe(run: Subscriber<T>, invalidate?: Invalidator<T>): Unsubscriber
 
-    /**
-     * Update value using callback and inform subscribers.
-     * @param updater callback
-     */
-    update(updater: Updater<T>): void
+  /**
+   * Update value using callback and inform subscribers.
+   * @param updater callback
+   */
+  update(updater: Updater<T>): void
 }
