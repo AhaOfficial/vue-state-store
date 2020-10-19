@@ -128,27 +128,23 @@ var Store = /** @class */ (function () {
     };
     Store.prototype.bind = function () {
         var _this = this;
-        if (this._bindedValue)
-            return this._bindedValue;
         var bindedValue = composition_api_1.ref(this._value);
-        this._unsubscribeStore = this.subscribe(function (data) {
+        var unsubscribeStore = this.subscribe(function (data) {
             bindedValue.value = data;
         });
-        this._unsubscribeWatch = composition_api_1.watch(bindedValue, function () {
+        var unsubscribeWatch = composition_api_1.watch(bindedValue, function () {
             var dataOfObserverRemoved = bindedValue.value;
             _this.set(dataOfObserverRemoved);
         }, {
             deep: true
         });
-        this._bindedValue = bindedValue;
-        return this._bindedValue;
-    };
-    Store.prototype.destroy = function () {
-        this._bindedValue = undefined;
-        if (typeof this._unsubscribeStore == 'function')
-            this._unsubscribeStore();
-        if (typeof this._unsubscribeWatch == 'function')
-            this._unsubscribeWatch();
+        composition_api_1.onUnmounted(function () {
+            if (unsubscribeWatch)
+                unsubscribeWatch();
+            if (unsubscribeStore)
+                unsubscribeStore();
+        });
+        return bindedValue;
     };
     return Store;
 }());

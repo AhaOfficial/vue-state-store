@@ -1,5 +1,5 @@
 import * as Interface from './interface';
-import { Ref, UnwrapRef } from '@vue/composition-api';
+import { UnwrapRef } from '@vue/composition-api';
 export declare const storeMap: {
     [storeName in string]: Interface.IStore<any>;
 };
@@ -8,14 +8,10 @@ export declare class Store<T> implements Interface.IStore<T> {
     protected subscribers: Array<Interface.SubscribeInvalidateTuple<T>>;
     protected start: Interface.StartStopNotifier<T>;
     private _value;
-    private _unsubscribeStore;
-    private _unsubscribeWatch;
-    private _bindedValue?;
     constructor(value: T, start?: Interface.StartStopNotifier<T>);
     get(): T;
     set(newValue: T): Promise<void>;
     update(callback: Interface.Updater<T> | Interface.AsyncUpdater<T>): Promise<void>;
     subscribe(run: Interface.Subscriber<T>, invalidate?: Interface.Invalidator<T>): Interface.Unsubscriber;
-    bind(): Ref<UnwrapRef<T>>;
-    destroy(): void;
+    bind(): import("@vue/composition-api").Ref<UnwrapRef<T>>;
 }

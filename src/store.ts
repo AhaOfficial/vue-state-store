@@ -1,6 +1,6 @@
 import * as Interface from './interface'
 import * as Utils from './utils'
-import { ref, Ref, UnwrapRef, watch, WatchSource } from '@vue/composition-api'
+import { ref, UnwrapRef, watch, onUnmounted, WatchSource } from '@vue/composition-api'
 declare const window: any
 
 const subscriberQueue: any[] = []
@@ -14,9 +14,6 @@ export class Store<T> implements Interface.IStore<T> {
   protected start: Interface.StartStopNotifier<T>
 
   private _value: T
-  private _unsubscribeStore
-  private _unsubscribeWatch
-  private _bindedValue?: Ref<UnwrapRef<T>>
 
   constructor(value: T, start: Interface.StartStopNotifier<T> = Utils.noop) {
     this._value = value
@@ -89,12 +86,11 @@ export class Store<T> implements Interface.IStore<T> {
   }
 
   bind() {
-    if (this._bindedValue) return this._bindedValue
     const bindedValue = ref(this._value)
-    this._unsubscribeStore = this.subscribe((data) => {
+    const unsubscribeStore = this.subscribe((data) => {
       bindedValue.value = data as UnwrapRef<T>
     })
-    this._unsubscribeWatch = watch(
+    const unsubscribeWatch = watch(
       bindedValue as WatchSource<T>,
       () => {
         const dataOfObserverRemoved = bindedValue.value
@@ -104,14 +100,11 @@ export class Store<T> implements Interface.IStore<T> {
         deep: true,
       }
     )
-    this._bindedValue = bindedValue
-    return this._bindedValue
-  }
-
-  destroy() {
-    this._bindedValue = undefined
-    if (typeof this._unsubscribeStore == 'function') this._unsubscribeStore()
-    if (typeof this._unsubscribeWatch == 'function') this._unsubscribeWatch()
+    onUnmounted(()=> {
+      if(unsubscribeWatch) unsubscribeWatch()
+      if(unsubscribeStore) unsubscribeStore()
+    })
+    return bindedValue
   }
 }
 
