@@ -89,7 +89,7 @@ export class Store<T> implements Interface.IStore<T> {
   }
 
   bind() {
-    if (this._bindedValue) return this._bindedValue.value
+    if (this._bindedValue) return this._bindedValue
     const bindedValue = ref(this._value)
     this._unsubscribeStore = this.subscribe((data) => {
       bindedValue.value = data as UnwrapRef<T>
@@ -105,7 +105,7 @@ export class Store<T> implements Interface.IStore<T> {
       }
     )
     this._bindedValue = bindedValue
-    return this._bindedValue.value
+    return this._bindedValue
   }
 
   destroy() {

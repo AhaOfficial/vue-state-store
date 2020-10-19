@@ -109,10 +109,7 @@ var Store = /** @class */ (function () {
     Store.prototype.subscribe = function (run, invalidate) {
         var _this = this;
         if (invalidate === void 0) { invalidate = Utils.noop; }
-        var subscriber = [
-            run,
-            invalidate,
-        ];
+        var subscriber = [run, invalidate];
         this.subscribers.push(subscriber);
         if (this.subscribers.length === 1)
             this.stop = this.start(this.set) || Utils.noop;
@@ -132,7 +129,7 @@ var Store = /** @class */ (function () {
     Store.prototype.bind = function () {
         var _this = this;
         if (this._bindedValue)
-            return this._bindedValue.value;
+            return this._bindedValue;
         var bindedValue = composition_api_1.ref(this._value);
         this._unsubscribeStore = this.subscribe(function (data) {
             bindedValue.value = data;
@@ -144,7 +141,7 @@ var Store = /** @class */ (function () {
             deep: true
         });
         this._bindedValue = bindedValue;
-        return this._bindedValue.value;
+        return this._bindedValue;
     };
     Store.prototype.destroy = function () {
         this._bindedValue = undefined;
