@@ -146,6 +146,25 @@ var Store = /** @class */ (function () {
         });
         return bindedValue;
     };
+    Store.prototype.watch = function (callback) {
+        var _this = this;
+        var unsubscribe;
+        composition_api_1.onMounted(function () {
+            unsubscribe = _this.subscribe(function (data) {
+                callback(data);
+            });
+        });
+        composition_api_1.onUnmounted(function () {
+            if (unsubscribe)
+                unsubscribe();
+        });
+    };
+    Store.prototype.patch = function (key, value) {
+        return this.update(function (data) {
+            data[key] = value;
+            return data;
+        });
+    };
     return Store;
 }());
 exports.Store = Store;
