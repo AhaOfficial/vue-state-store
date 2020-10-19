@@ -114,7 +114,7 @@ export class Store<T> implements Interface.IStore<T> {
     return bindedValue
   }
 
-  watch(callback: Interface.Updater<T> | Interface.AsyncUpdater<T>) {
+  watch(callback: Interface.Subscriber<T>) {
     let unsubscribe: Interface.Unsubscriber
     onMounted(() => {
       unsubscribe = this.subscribe((data) => {
@@ -126,7 +126,7 @@ export class Store<T> implements Interface.IStore<T> {
     })
   }
 
-  patch(key: keyof T, value) {
+  patch<K extends keyof T>(key: K, value: T[K]) {
     return this.update((data) => {
       data[key] = value
       return data

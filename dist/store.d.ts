@@ -14,6 +14,6 @@ export declare class Store<T> implements Interface.IStore<T> {
     update(callback: Interface.Updater<T> | Interface.AsyncUpdater<T>): Promise<void>;
     subscribe(run: Interface.Subscriber<T>, invalidate?: Interface.Invalidator<T>): Interface.Unsubscriber;
     bind(): import("@vue/composition-api").Ref<UnwrapRef<T>>;
-    watch(callback: Interface.Updater<T> | Interface.AsyncUpdater<T>): void;
-    patch(key: keyof T, value: any): Promise<void>;
+    watch(callback: Interface.Subscriber<T>): void;
+    patch<K extends keyof T>(key: K, value: T[K]): Promise<void>;
 }
