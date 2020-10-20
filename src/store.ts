@@ -46,9 +46,14 @@ export class Store<T> implements Interface.IStore<T> {
     return Utils.getStoreValue(this)
   }
 
-  set(newValue: T) {
+  getItem<K extends keyof T>(key: K): T[K] {
+    const data = Utils.getStoreValue(this)
+    return data[key]
+  }
+
+  set(newValue: T, force: boolean = false) {
     return new Promise<void>((resolve) => {
-      if (Utils.safeNotEqual(this._value, newValue)) {
+      if (Utils.notEqual(this._value, newValue) || force) {
         this._value = newValue
         if (this.stop) {
           const runQueue = !subscriberQueue.length
@@ -101,7 +106,11 @@ export class Store<T> implements Interface.IStore<T> {
       bindedValue as WatchSource<T>,
       () => {
         const dataOfObserverRemoved = bindedValue.value
-        this.set(dataOfObserverRemoved as T)
+        if (Utils.notEqual(this._value, dataOfObserverRemoved)) {
+          this.set(dataOfObserverRemoved as T)
+        } else {
+          this._value = dataOfObserverRemoved as T
+        }
       },
       {
         deep: true,
@@ -114,10 +123,22 @@ export class Store<T> implements Interface.IStore<T> {
     return bindedValue
   }
 
-  watch(callback: Interface.Subscriber<T>) {
+  watch(
+    callback: Interface.Subscriber<T>,
+    option: {
+      immediate: boolean
+    } = {
+      immediate: false,
+    }
+  ) {
     let unsubscribe: Interface.Unsubscriber
+    let isFirst = true
     onMounted(() => {
       unsubscribe = this.subscribe((data) => {
+        if (isFirst && !option.immediate) {
+          isFirst = false
+          return
+        }
         callback(data)
       })
     })

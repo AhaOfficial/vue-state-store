@@ -68,10 +68,15 @@ var Store = /** @class */ (function () {
     Store.prototype.get = function () {
         return Utils.getStoreValue(this);
     };
-    Store.prototype.set = function (newValue) {
+    Store.prototype.getItem = function (key) {
+        var data = Utils.getStoreValue(this);
+        return data[key];
+    };
+    Store.prototype.set = function (newValue, force) {
         var _this = this;
+        if (force === void 0) { force = false; }
         return new Promise(function (resolve) {
-            if (Utils.safeNotEqual(_this._value, newValue)) {
+            if (Utils.notEqual(_this._value, newValue) || force) {
                 _this._value = newValue;
                 if (_this.stop) {
                     var runQueue = !subscriberQueue.length;
@@ -134,7 +139,12 @@ var Store = /** @class */ (function () {
         });
         var unsubscribeWatch = composition_api_1.watch(bindedValue, function () {
             var dataOfObserverRemoved = bindedValue.value;
-            _this.set(dataOfObserverRemoved);
+            if (Utils.notEqual(_this._value, dataOfObserverRemoved)) {
+                _this.set(dataOfObserverRemoved);
+            }
+            else {
+                _this._value = dataOfObserverRemoved;
+            }
         }, {
             deep: true
         });
@@ -146,11 +156,19 @@ var Store = /** @class */ (function () {
         });
         return bindedValue;
     };
-    Store.prototype.watch = function (callback) {
+    Store.prototype.watch = function (callback, option) {
         var _this = this;
+        if (option === void 0) { option = {
+            immediate: false
+        }; }
         var unsubscribe;
+        var isFirst = true;
         composition_api_1.onMounted(function () {
             unsubscribe = _this.subscribe(function (data) {
+                if (isFirst && !option.immediate) {
+                    isFirst = false;
+                    return;
+                }
                 callback(data);
             });
         });
