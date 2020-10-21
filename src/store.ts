@@ -31,7 +31,6 @@ export class Store<T> implements Interface.IStore<T> {
     if (
       typeof window !== 'undefined' &&
       window.__NUXT__ &&
-      window.__NUXT__ &&
       window.__NUXT__._vss &&
       window.__NUXT__._vss[storeName]
     ) {
@@ -98,19 +97,21 @@ export class Store<T> implements Interface.IStore<T> {
   }
 
   bind() {
-    const bindedValue = ref(this._value)
+    const bindedValue = ref(Utils.clone(this._value))
+
     const unsubscribeStore = this.subscribe((data) => {
-      bindedValue.value = data as UnwrapRef<T>
+      bindedValue.value = Utils.clone(data) as UnwrapRef<T>
     })
+
     const unsubscribeWatch = watch(
       bindedValue as WatchSource<T>,
       () => {
-        const dataOfObserverRemoved = bindedValue.value
-        if (Utils.notEqual(this._value, dataOfObserverRemoved)) {
+        const data = bindedValue.value as T
+        const dataOfObserverRemoved = Utils.clone(data)
+        const originOfOfObserverRemoved = Utils.clone(this._value)
+
+        if (!Utils.deepEqual(dataOfObserverRemoved, originOfOfObserverRemoved))
           this.set(dataOfObserverRemoved as T)
-        } else {
-          this._value = dataOfObserverRemoved as T
-        }
       },
       {
         deep: true,

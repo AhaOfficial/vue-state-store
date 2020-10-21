@@ -7,3 +7,5 @@ export declare const notEqual: (a: any, b: any) => boolean;
 export declare const validateStore: (store: any, name: any) => void;
 export declare const subscribe: (store: any, ...callbacks: any[]) => any;
 export declare const getStoreValue: (store: any) => any;
+export declare const deepEqual: (x: any, y: any) => boolean;
+export declare const clone: (object: any) => any;

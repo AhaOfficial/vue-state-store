@@ -57,7 +57,6 @@ var Store = /** @class */ (function () {
         var storeName = this.constructor.name;
         if (typeof window !== 'undefined' &&
             window.__NUXT__ &&
-            window.__NUXT__ &&
             window.__NUXT__._vss &&
             window.__NUXT__._vss[storeName]) {
             this._value = window.__NUXT__._vss[storeName];
@@ -133,18 +132,16 @@ var Store = /** @class */ (function () {
     };
     Store.prototype.bind = function () {
         var _this = this;
-        var bindedValue = composition_api_1.ref(this._value);
+        var bindedValue = composition_api_1.ref(Utils.clone(this._value));
         var unsubscribeStore = this.subscribe(function (data) {
-            bindedValue.value = data;
+            bindedValue.value = Utils.clone(data);
         });
         var unsubscribeWatch = composition_api_1.watch(bindedValue, function () {
-            var dataOfObserverRemoved = bindedValue.value;
-            if (Utils.notEqual(_this._value, dataOfObserverRemoved)) {
+            var data = bindedValue.value;
+            var dataOfObserverRemoved = Utils.clone(data);
+            var originOfOfObserverRemoved = Utils.clone(_this._value);
+            if (!Utils.deepEqual(dataOfObserverRemoved, originOfOfObserverRemoved))
                 _this.set(dataOfObserverRemoved);
-            }
-            else {
-                _this._value = dataOfObserverRemoved;
-            }
         }, {
             deep: true
         });
