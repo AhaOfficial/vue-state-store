@@ -1,14 +1,22 @@
-import * as MobX from 'mobx';
+import * as MobX from 'mobx'
+import { build as _build } from './build'
+
 /**
  * Build State Store Classes.
  */
-export declare const build: <T extends {
-    [x: string]: new () => InstanceType<T[string]>;
-}>(Stores: T) => { [storeName in keyof T]: InstanceType<T[storeName]>; };
+export const build = <
+  T extends { [storeName in string]: { new (): InstanceType<T[storeName]> } }
+>(
+  Stores: T
+) => {
+  const { getStores } = _build(Stores)
+  return getStores()
+}
+
 /**
  * @description
  * Detects changes of state value.
- *
+ * 
  * @example
  * subscribe(
     Counter.count,
@@ -20,29 +28,52 @@ export declare const build: <T extends {
  * @param callback `changedValue => {}` Changed Value
  * @param options Watch Options
  */
-export declare const subscribe: <T, B>(source: T, callback: () => B, options?: {
-    immediate: boolean;
-}) => () => void;
+export const subscribe = <T, B>(
+  source: T,
+  callback: () => B,
+  options: { immediate: boolean } = {
+    immediate: false,
+  }
+) => {
+  let unsubscribe: B
+  if (options && options.immediate) unsubscribe = callback()
+  const cleanupReaction = MobX.reaction<T>(
+    () => source,
+    () => {
+      if (typeof unsubscribe === 'function') unsubscribe()
+      unsubscribe = callback()
+    },
+    {
+      fireImmediately: true,
+    }
+  )
+
+  return () => cleanupReaction()
+}
+
 /**
  * Create simple local state.
  */
-export declare const state: <T>(data: T) => T;
+export const state = <T>(data: T) => MobX.observable(data)
+
 /**
  * Create simple local computed value.
  */
-export declare const computed: <T>(data: () => T) => T;
+export const computed = <T>(data: () => T) => MobX.computed(data).get()
+
 /**
  * @description
  * 'condition' function allows logic to be
  * used when certain conditions are reached.
- *
+ * 
  * @example
  * async function() {
     await condition(() => that.isVisible)
     // etc ..
   }
  */
-export declare const condition: typeof MobX.when;
+export const condition = MobX.when
+
 /**
  * Clone the state or state store to JSON Object.
  *
@@ -54,4 +85,4 @@ export declare const condition: typeof MobX.when;
  * necessary to refer to the value that is clone.
  * @param state state or store
  */
-export declare const clone: <T>(state: T) => T;
+export const clone = <T>(state: T) => JSON.parse(JSON.stringify(state)) as T

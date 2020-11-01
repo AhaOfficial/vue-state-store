@@ -1,10 +1,10 @@
 {
-  "name": "universal-state",
-  "version": "0.0.1",
+  "name": "universal-state-repo",
+  "version": "1.0.0",
   "description": "📦 UNIVERSAL-STATE MANAGEMENT",
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "publish": "lerna publish"
+    "publish": "lerna publish --no-git-tag-version --force-publish"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
