@@ -1,6 +1,6 @@
 {
   "name": "universal-state",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "📦 UNIVERSAL-STATE MANAGEMENT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
