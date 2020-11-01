@@ -4,7 +4,8 @@
   "description": "📦 UNIVERSAL-STATE MANAGEMENT",
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "publish": "lerna publish --no-git-tag-version --force-publish"
+    "publish": "lerna publish --force-publish",
+    "publish:force": "lerna publish --no-git-tag-version --force-publish"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
