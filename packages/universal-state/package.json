@@ -1,0 +1,31 @@
+{
+  "name": "universal-state",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsc && node dist/index.js",
+    "clean": "rm -rf ./dist/*.*",
+    "lint": "prettier --write \"./src/**/*.{js,ts}\"",
+    "export": "tsc && webpack"
+  },
+  "author": "AhaOfficial",
+  "homepage": "https://a-ha.io/packages/universal-state",
+  "license": "ISC",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AhaOfficial/vue-state-store.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AhaOfficial/vue-state-store/issues"
+  }
+}

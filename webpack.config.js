@@ -5,9 +5,9 @@ module.exports = {
     entry: './dist/default.js',
     output: {
         path: path.resolve(__dirname, 'export'),
-        filename: 'vue-state-store.js',
+        filename: 'us.min.js',
         publicPath: './dist',
-        library: 'VueStateStore',
+        library: 'us',
         libraryTarget: 'this',
         libraryExport: 'default'
     },
