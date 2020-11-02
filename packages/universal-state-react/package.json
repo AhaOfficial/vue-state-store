@@ -21,7 +21,14 @@
   "bugs": {
     "url": "https://github.com/AhaOfficial/vue-state-store/issues"
   },
+  "peerDependencies": {
+    "react": "^16.8.0 || 16.9.0-alpha.0"
+  },
   "dependencies": {
-    "mobx-react": "^7.0.0"
+    "mobx-react": "^7.0.0",
+    "universal-state": "0.0.8"
+  },
+  "devDependencies": {
+    "react": "^16.9.0"
   }
 }
