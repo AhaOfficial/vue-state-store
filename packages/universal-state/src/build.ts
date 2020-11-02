@@ -3,7 +3,7 @@ import * as MobX from 'mobx'
 /**
  * Collects instances of the store instances of the store.
  */
-let storeInstances: any = null
+export let storeInstances: any = null
 
 /**
  * Build State Store Classes.

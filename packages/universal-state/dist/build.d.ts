@@ -1,4 +1,8 @@
 /**
+ * Collects instances of the store instances of the store.
+ */
+export declare let storeInstances: any;
+/**
  * Build State Store Classes.
  */
 export declare const build: <T extends {

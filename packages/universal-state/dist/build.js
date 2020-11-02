@@ -11,7 +11,7 @@ var MobX = __importStar(require("mobx"));
 /**
  * Collects instances of the store instances of the store.
  */
-var storeInstances = null;
+exports.storeInstances = null;
 /**
  * Build State Store Classes.
  */
@@ -44,9 +44,9 @@ exports.build = function (Stores) {
         }
         return bindedStores;
     };
-    if (storeInstances === null || typeof window === 'undefined')
-        storeInstances = defineStores(Stores);
-    var getStores = function () { return storeInstances; };
+    if (exports.storeInstances === null || typeof window === 'undefined')
+        exports.storeInstances = defineStores(Stores);
+    var getStores = function () { return exports.storeInstances; };
     return {
         getStores: getStores,
         defineStores: defineStores,
