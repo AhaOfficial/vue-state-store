@@ -1,6 +1,6 @@
 {
   "name": "@universal-state/react",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "📦 UNIVERSAL-STATE MANAGEMENT FOR REACT",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "mobx-react": "^7.0.0",
-    "universal-state": "0.0.8"
+    "universal-state": "0.0.9"
   },
   "devDependencies": {
     "react": "^16.9.0"
