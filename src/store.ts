@@ -67,8 +67,8 @@ export class Store<T> implements Interface.IStore<T> {
             subscriberQueue.length = 0
           }
         }
-        resolve()
       }
+      resolve()
     })
   }
 

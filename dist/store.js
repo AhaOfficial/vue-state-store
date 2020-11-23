@@ -90,8 +90,8 @@ var Store = /** @class */ (function () {
                         subscriberQueue.length = 0;
                     }
                 }
-                resolve();
             }
+            resolve();
         });
     };
     Store.prototype.update = function (callback) {
