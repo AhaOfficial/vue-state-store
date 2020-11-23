@@ -36,12 +36,11 @@ export const subscribe = <T, B>(
   }
 ) => {
   let unsubscribe: B
-  if (options && options.immediate) unsubscribe = callback()
   const cleanupReaction = MobX.reaction<T>(
     () => source,
     () => {
       if (typeof unsubscribe === 'function') unsubscribe()
-      unsubscribe = callback()
+      if (options && options.immediate) unsubscribe = callback()
     },
     {
       fireImmediately: true,
